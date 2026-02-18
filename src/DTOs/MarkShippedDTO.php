@@ -4,5 +4,8 @@ namespace Gumroad\DTOs;
 
 class MarkShippedDTO extends BaseDTO
 {
-    public ?string $tracking_url;
+    public function __construct(
+        public ?string $tracking_url
+    ) {}
+
 }

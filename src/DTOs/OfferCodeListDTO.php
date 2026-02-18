@@ -6,8 +6,9 @@ use Spatie\LaravelData\Attributes\DataCollectionOf;
 
 class OfferCodeListDTO extends BaseDTO
 {
-    public bool $success;
-
-    #[DataCollectionOf(OfferCodeDTO::class)]
-    public array $offer_codes;
+    public function __construct(
+        public bool $success,
+        #[DataCollectionOf(OfferCodeDTO::class)]
+        public array $offer_codes
+    ) {}
 }
