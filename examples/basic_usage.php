@@ -36,7 +36,8 @@ try {
     
     if (!empty($products->products)) {
         $firstProduct = $products->products[0];
-        echo "First product: {$firstProduct->name} (\${$firstProduct->price/100})\n\n";
+        $percent = $firstProduct->price/100;
+        echo "First product: {$firstProduct->name} {$percent}\n\n";
         
         // Get specific product details
         echo "Getting product details...\n";
@@ -62,13 +63,14 @@ try {
     
     // Create offer code
     echo "Creating offer code...\n";
-    $offerCodeData = new CreateOfferCodeDTO([
-        'name' => 'WELCOME10',
-        'percent_off' => 10,
-        'offer_type' => 'percent',
-        'max_purchase_count' => 100,
-        'universal' => false
-    ]);
+    $offerCodeData = new CreateOfferCodeDTO(
+        name : 'WELCOME10',
+        amount_off : 10,
+        percent_off: 10,
+        offer_type: 'percent',
+        max_purchase_count : 100,
+        universal : false,
+    );
     
     $offerCode = $client->createOfferCode($productId, $offerCodeData);
     echo "Created offer code: {$offerCode->name}\n\n";
