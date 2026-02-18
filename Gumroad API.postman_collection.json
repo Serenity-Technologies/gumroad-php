@@ -1,0 +1,3088 @@
+{
+	"info": {
+		"_postman_id": "37f17789-b6d1-4e23-895b-14d2861ab2b6",
+		"name": "Gumroad API",
+		"description": "The Gumroad API, also known as the Gumroad OAuth API, is a RESTful service that allows developers to interact with various aspects of the Gumroad platform, such as products, variant categories, offer codes, custom fields, user information, resource subscriptions, sales, subscribers, and licenses. The API provides methods to retrieve, add, edit, and delete data related to these entities. For more detailed information, visit the [Gumroad API documentation](https://gumroad.com/api).\n\n# Security\n\nThe Gumroad API is secured using OAuth 2.0, a widely adopted authorization framework that enables applications to obtain limited access to user accounts on an HTTP service. To start using the API, you need to register your OAuth application on the Gumroad platform. After creating an application, you'll receive a unique application ID and application secret. On the application page, you can generate an access token, which is required for making API calls. For more details on authentication, refer to the [Gumroad API documentation](https://gumroad.com/api).\n\n# How to use this collection\n\nTo run the requests in Postman, you need to set up environment variables for the access token. It is recommended to store sensitive information like the access token in the Postman vault instead of environment variables. You can find more about setting up secrets in the [Postman Vault documentation](https://learning.postman.com/docs/sending-requests/postman-vault/postman-vault-secrets/). Below is a table describing the necessary variable:\n\n| Name          | Description                                      |\n|---------------|--------------------------------------------------|\n| `access_token`| The OAuth 2.0 access token for authenticating API requests. |\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13130410",
+		"_collection_link": "https://www.postman.com/api-reference-library/workspace/gumroad/collection/42654973-37f17789-b6d1-4e23-895b-14d2861ab2b6?action=share&source=collection_link&creator=13130410"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Enable Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/enable",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"enable"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique identifier of the product to be enabled."
+								}
+							]
+						},
+						"description": "The `PUT /products/{product_id}/enable` operation in the Gumroad API is used to enable an existing product, making it available for purchase again.\n\n## Response Body\n\n| Name    | Type    | Description                                      |\n|---------|---------|--------------------------------------------------|\n| success | boolean | Indicates whether the operation was successful.  |\n| message | string  | A message confirming the product has been enabled.|\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique identifier of the product to be deleted."
+								}
+							]
+						},
+						"description": "The `DELETE /products/{product_id}` operation in the Gumroad API is used to permanently delete a product from your account. This operation is crucial for managing the lifecycle of products, allowing you to remove products that are no longer needed or relevant.\n\n## Response Body\n\n| Name    | Type    | Description                                      |\n|---------|---------|--------------------------------------------------|\n| success | boolean | Indicates whether the operation was successful.  |\n| message | string  | A message confirming the deletion of the product.|"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products"
+							]
+						},
+						"description": "The `GET /products` operation in the Gumroad API retrieves all existing products for the authenticated user. This operation allows you to access detailed information about your products, including pricing, descriptions, and variants.\n\n## Response Body\n\n| Name | Type | Description |\n|-------------------------------------------|----------|-------------------------------------------------------------------------------------------------|\n| success | Boolean | Indicates if the request was successful. |\n| products | Array | A list of product objects. |\n| products[].id | String | Unique identifier for the product. |\n| products[].name | String | Name of the product. |\n| products[].description | String | Description of the product. |\n| products[].price | Integer | Price of the product in cents. |\n| products[].currency | String | Currency code for the product price. |\n| products[].url | String | URL to the product page. |\n| products[].thumbnail_url | String | URL to the product's thumbnail image. |\n| products[].tags | Array | Tags associated with the product. |\n| products[].is_tiered_membership | Boolean | Indicates if the product is part of a tiered membership. |\n| products[].recurrences | Array | List of available subscription durations if the product is a tiered membership. |\n| products[].variants | Array | Variants of the product, each with its own options and pricing. |"
+					},
+					"response": [
+						{
+							"name": "Retrieve all products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products"
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"products\": [{\n        \"custom_permalink\": null,\n        \"custom_receipt\": null,\n        \"custom_summary\": \"You'll get one PSD file.\",\n        \"custom_fields\": [],\n        \"customizable_price\": null,\n        \"description\": \"I made this for fun.\",\n        \"deleted\": false,\n        \"max_purchase_count\": null,\n        \"name\": \"Pencil Icon PSD\",\n        \"preview_url\": null,\n        \"require_shipping\": false,\n        \"subscription_duration\": null,\n        \"published\": true,\n        \"url\": \"http://sahillavingia.com/pencil.psd\",\n        \"id\": \"A-m3CDDC5dlrSdKZp0RFhA==\",\n        \"price\": 100,\n        \"purchasing_power_parity_prices\": {\n            \"US\": 100,\n            \"IN\": 50,\n            \"EC\": 25\n        },\n        \"currency\": \"usd\",\n        \"short_url\": \"https://sahil.gumroad.com/l/pencil\",\n        \"thumbnail_url\": \"https://public-files.gumroad.com/variants/72iaezqqthnj1350mdc618namqki/f2f9c6fc18a80b8bafa38f3562360c0e42507f1c0052dcb708593f7efa3bdab8\",\n        \"tags\": [\"pencil\", \"icon\"],\n        \"formatted_price\": \"$1\",\n        \"file_info\": {},\n        \"sales_count\": \"0\",\n        \"sales_usd_cents\": \"0\",\n        \"is_tiered_membership\": true,\n        \"recurrences\": [\"monthly\"],\n        \"variants\": [\n            {\n                \"title\": \"Tier\",\n                \"options\": [\n                    {\n                        \"name\": \"First Tier\",\n                        \"price_difference\": 0,\n                        \"purchasing_power_parity_prices\": {\n                            \"US\": 200,\n                            \"IN\": 100,\n                            \"EC\": 50\n                        },\n                        \"is_pay_what_you_want\": false,\n                        \"recurrence_prices\": {\n                            \"monthly\": {\n                                \"price_cents\": 300,\n                                \"suggested_price_cents\": null,\n                                \"purchasing_power_parity_prices\": {\n                                    \"US\": 400,\n                                    \"IN\": 200,\n                                    \"EC\": 100\n                                }\n                            }\n                        }\n                    }\n                ]\n            }\n        ]\n    }]\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve Product Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique identifier of the product to retrieve."
+								}
+							]
+						},
+						"description": "The `GET /products/{product_id}` operation in the Gumroad API is used to retrieve the details of a specific product. This operation allows you to access comprehensive information about a product, including its description, price, variants, and more.\n\n## Response Body\n\n| Name | Type | Description |\n|--------------------------------------------|---------|-----------------------------------------------------------------------------------------------|\n| success | boolean | Indicates if the request was successful. |\n| product | object | Contains detailed information about the product. |\n| product.custom_permalink | string | Custom permalink for the product, if any. |\n| product.custom_receipt | string | Custom receipt message for the product, if any. |\n| product.custom_summary | string | Summary of what the customer will receive. |\n| product.custom_fields | array | List of custom fields associated with the product. |\n| product.customizable_price | number | Indicates if the price is customizable. |\n| product.description | string | Description of the product. |\n| product.deleted | boolean | Indicates if the product has been deleted. |\n| product.max_purchase_count | number | Maximum number of times the product can be purchased. |\n| product.name | string | Name of the product. |\n| product.preview_url | string | URL for the product preview, if any. |\n| product.require_shipping | boolean | Indicates if shipping is required for the product. |\n| product.subscription_duration | string | Duration of the subscription, if applicable. |\n| product.published | boolean | Indicates if the product is published. |\n| product.url | string | URL of the product. |\n| product.id | string | Unique identifier of the product. |\n| product.price | number | Price of the product in cents. |\n| product.purchasing_power_parity_prices | object | Prices adjusted for purchasing power parity in different regions. |\n| product.currency | string | Currency code for the product price. |\n| product.short_url | string | Shortened URL for the product. |\n| product.thumbnail_url | string | URL of the product's thumbnail image. |\n| product.tags | array | Tags associated with the product. |\n| product.formatted_price | string | Formatted price of the product. |\n| product.file_info | object | Information about the product file. |\n| product.sales_count | string | Number of sales for the product (requires 'view_sales' scope). |\n| product.sales_usd_cents | string | Total sales in USD cents (requires 'view_sales' scope). |\n| product.is_tiered_membership | boolean | Indicates if the product is a tiered membership. |\n| product.recurrences | array | Available subscription durations if the product is a tiered membership. |\n| product.variants | array | Variants of the product, including options and pricing details. |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Product Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"product\": {\n        \"custom_permalink\": null,\n        \"custom_receipt\": null,\n        \"custom_summary\": \"You'll get one PSD file.\",\n        \"custom_fields\": [],\n        \"customizable_price\": null,\n        \"description\": \"I made this for fun.\",\n        \"deleted\": false,\n        \"max_purchase_count\": null,\n        \"name\": \"Pencil Icon PSD\",\n        \"preview_url\": null,\n        \"require_shipping\": false,\n        \"subscription_duration\": null,\n        \"published\": true,\n        \"url\": \"http://sahillavingia.com/pencil.psd\",\n        \"id\": \"A-m3CDDC5dlrSdKZp0RFhA==\",\n        \"price\": 100,\n        \"purchasing_power_parity_prices\": {\n            \"US\": 100,\n            \"IN\": 50,\n            \"EC\": 25\n        },\n        \"currency\": \"usd\",\n        \"short_url\": \"https://sahil.gumroad.com/l/pencil\",\n        \"thumbnail_url\": \"https://public-files.gumroad.com/variants/72iaezqqthnj1350mdc618namqki/f2f9c6fc18a80b8bafa38f3562360c0e42507f1c0052dcb708593f7efa3bdab8\",\n        \"tags\": [\"pencil\", \"icon\"],\n        \"formatted_price\": \"$1\",\n        \"file_info\": {},\n        \"sales_count\": \"0\",\n        \"sales_usd_cents\": \"0\",\n        \"is_tiered_membership\": true,\n        \"recurrences\": [\"monthly\"],\n        \"variants\": [\n            {\n                \"title\": \"Tier\",\n                \"options\": [\n                    {\n                        \"name\": \"First Tier\",\n                        \"price_difference\": 0,\n                        \"purchasing_power_parity_prices\": {\n                            \"US\": 200,\n                            \"IN\": 100,\n                            \"EC\": 50\n                        },\n                        \"is_pay_what_you_want\": false,\n                        \"recurrence_prices\": {\n                            \"monthly\": {\n                                \"price_cents\": 300,\n                                \"suggested_price_cents\": null,\n                                \"purchasing_power_parity_prices\": {\n                                    \"US\": 400,\n                                    \"IN\": 200,\n                                    \"EC\": 100\n                                }\n                            }\n                        }\n                    }\n                ]\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Disable Product",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/disable",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"disable"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique identifier of the product to be disabled."
+								}
+							]
+						},
+						"description": "The `PUT /products/{product_id}/disable` operation is part of the Gumroad OAuth API, which allows you to manage your products on the Gumroad platform. This specific operation is used to disable an existing product, making it unavailable for purchase. Disabling a product can be useful when you want to temporarily remove a product from your store without permanently deleting it.\n\n## Response Body\n\n| Name | Type | Description |\n|------|------|-------------|\n| success | boolean | Indicates whether the operation was successful. |\n| message | string | A message confirming the product was disabled. |\n| product.custom_permalink | null | Custom permalink of the product. |\n| product.custom_receipt | null | Custom receipt of the product. |\n| product.custom_summary | string | Summary of what the customer will receive. |\n| product.custom_fields | array | Custom fields associated with the product. |\n| product.customizable_price | null | Indicates if the price is customizable. |\n| product.description | string | Description of the product. |\n| product.deleted | boolean | Indicates if the product is deleted. |\n| product.max_purchase_count | null | Maximum purchase count allowed. |\n| product.name | string | Name of the product. |\n| product.preview_url | null | Preview URL of the product. |\n| product.require_shipping | boolean | Indicates if shipping is required. |\n| product.subscription_duration | null | Duration of the subscription. |\n| product.published | boolean | Indicates if the product is published. |\n| product.url | string | URL of the product. |\n| product.id | string | ID of the product. |\n| product.price | number | Price of the product in cents. |\n| product.currency | string | Currency of the product price. |\n| product.short_url | string | Short URL of the product. |\n| product.thumbnail_url | string | Thumbnail URL of the product. |\n| product.tags | array | Tags associated with the product. |\n| product.formatted_price | string | Formatted price of the product. |\n| product.file_info | object | File information of the product. |\n| product.view_count | string | View count of the product. |\n| product.sales_count | string | Sales count of the product. |\n| product.sales_usd_cents | string | Sales in USD cents. |\n| product.is_tiered_membership | boolean | Indicates if the product is a tiered membership. |\n| product.recurrences | array | Recurrence options for the product. |\n| product.variants | array | Variants of the product. |\n| product.variants.title | string | Title of the variant. |\n| product.variants.options | array | Options for the variant. |\n| product.variants.options.name | string | Name of the option. |\n| product.variants.options.price_difference | number | Price difference for the option. |\n| product.variants.options.is_pay_what_you_want | boolean | Indicates if the option is pay-what-you-want. |\n| product.variants.options.recurrence_prices | object | Recurrence prices for the option. |\n| product.variants.options.recurrence_prices.monthly | object | Monthly recurrence prices. |\n| product.variants.options.recurrence_prices.monthly.price_cents | number | Price in cents for monthly recurrence. |\n| product.variants.options.recurrence_prices.monthly.suggested_price_cents | null | Suggested price in cents for monthly recurrence. |\n"
+					},
+					"response": [
+						{
+							"name": "Disable a Product",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/disable",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"disable"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "A-m3CDDC5dlrSdKZp0RFhA=="
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"product\": {\n        \"custom_permalink\": null,\n        \"custom_receipt\": null,\n        \"custom_summary\": \"You'll get one PSD file.\",\n        \"custom_fields\": [],\n        \"customizable_price\": null,\n        \"description\": \"I made this for fun.\",\n        \"deleted\": false,\n        \"max_purchase_count\": null,\n        \"name\": \"Pencil Icon PSD\",\n        \"preview_url\": null,\n        \"require_shipping\": false,\n        \"subscription_duration\": null,\n        \"published\": false,\n        \"url\": \"http://sahillavingia.com/pencil.psd\",\n        \"id\": \"A-m3CDDC5dlrSdKZp0RFhA==\",\n        \"price\": 100,\n        \"currency\": \"usd\",\n        \"short_url\": \"https://sahil.gumroad.com/l/pencil\",\n        \"thumbnail_url\": \"https://public-files.gumroad.com/variants/72iaezqqthnj1350mdc618namqki/f2f9c6fc18a80b8bafa38f3562360c0e42507f1c0052dcb708593f7efa3bdab8\",\n        \"tags\": [\"pencil\", \"icon\"],\n        \"formatted_price\": \"$1\",\n        \"file_info\": {},\n        \"view_count\": \"0\",\n        \"sales_count\": \"0\",\n        \"sales_usd_cents\": \"0\",\n        \"is_tiered_membership\": true,\n        \"recurrences\": [\"monthly\"],\n        \"variants\": [\n            {\n                \"title\": \"Tier\",\n                \"options\": [\n                    {\n                        \"name\": \"First Tier\",\n                        \"price_difference\": 0,\n                        \"is_pay_what_you_want\": false,\n                        \"recurrence_prices\": {\n                            \"monthly\": {\n                                \"price_cents\": 300,\n                                \"suggested_price_cents\": null\n                            }\n                        }\n                    }\n                ]\n            }\n        ]\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Variant Categories",
+			"item": [
+				{
+					"name": "Get Variant Categories",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "The content type of the response, typically application/json."
+							}
+						],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"variant_categories"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique identifier of the product whose variant categories are being retrieved."
+								}
+							]
+						},
+						"description": "The `GET /products/{product_id}/variant_categories` operation retrieves the variant categories associated with a specific product in the Gumroad platform. This endpoint is part of the Gumroad OAuth API, which allows developers to interact with various resources on the Gumroad platform. The purpose of this operation is to provide you with detailed information about the different variant categories available for a given product, enabling you to understand and manage product variations effectively.\n\n## Response Body\n\n| Name                | Type    | Description                                                                 |\n|---------------------|---------|-----------------------------------------------------------------------------|\n| success             | boolean | Indicates whether the request was successful.                               |\n| variant_categories  | array   | A list of variant categories for the product. Each category includes details such as title and options. |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Variant Categories",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/A-m3CDDC5dlrSdKZp0RFhA==/variant_categories",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										"A-m3CDDC5dlrSdKZp0RFhA==",
+										"variant_categories"
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"variant_categories\": [{\n        \"id\": \"mN7CdHiwHaR9FlxKvF-n-g==\",\n        \"title\": \"colors\"\n    }, {...}, {...}]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Variant Category Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"variant_categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						},
+						"description": "The `GET /products/{product_id}/variant_categories/{id}` operation retrieves the details of a specific variant category associated with a product in the Gumroad platform. This endpoint is part of the Gumroad OAuth API, which allows developers to interact with various resources on the Gumroad platform. The purpose of this operation is to provide detailed information about a particular variant category, which can include options and pricing variations for a product.\n\n## Response Body\n\n| Name                      | Type   | Description                                      |\n|---------------------------|--------|--------------------------------------------------|\n| success                   | bool   | Indicates if the request was successful.          |\n| variant_category          | object | Contains details of the variant category.         |\n| variant_category.id       | string | The unique identifier of the variant category.    |\n| variant_category.title    | string | The title of the variant category.                |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Variant Category Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"variant_categories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"variant_category\": {\n        \"id\": \"mN7CdHiwHaR9FlxKvF-n-g==\",\n        \"title\": \"colors\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Variant Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"variant_categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						},
+						"description": "The `DELETE /products/{product_id}/variant_categories/{id}` operation allows you to permanently delete a specific variant category associated with a product. By providing the product ID and the variant category ID, you can remove unwanted or obsolete variant categories from your product listings.\n\n## Response Body\n\n| Name    | Type    | Description                                      |\n|---------|---------|--------------------------------------------------|\n| success | boolean | Indicates whether the deletion was successful.   |\n| message | string  | A message confirming the deletion.               |"
+					},
+					"response": [
+						{
+							"name": "Deleting a Variant Category",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"variant_categories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The variant_category has been deleted successfully.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Variant Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Color\",\n    \"options\": [\n        {\"name\": \"Red\", \"price_diff\": 5},\n        {\"name\": \"Blue\", \"price_diff\": 3}\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/products/:product_id/variant_categories",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"products",
+								":product_id",
+								"variant_categories"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique identifier of the product"
+								}
+							]
+						},
+						"description": "The `POST /products/{product_id}/variant_categories` operation allows you to create a new variant category for a specific product in the Gumroad platform. By using this endpoint, you can add different categories of variants to a product, enhancing the product's customization options.\n\n## Request Body\n\n| Name             | Type   | Required | Description                                      |\n|------------------|--------|----------|--------------------------------------------------|\n| name             | string | Yes      | The name of the variant category                 |\n| options          | array  | Yes      | An array of options available under this category|\n| options[].name   | string | Yes      | The name of each option within the category      |\n| options[].price_diff | number | No       | Price difference for each option (if applicable) |\n\n## Response Body\n\n| Name                     | Type   | Description                                      |\n|--------------------------|--------|--------------------------------------------------|\n| success                  | bool   | Indicates if the operation was successful         |\n| variant_category         | object | Details of the created variant category           |\n| variant_category.id      | string | The unique identifier of the variant category     |\n| variant_category.name    | string | The name of the variant category                  |\n| variant_category.options | array  | The options available under this category         |"
+					},
+					"response": [
+						{
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Color\",\n    \"options\": [\n        {\"name\": \"Red\", \"price_diff\": 5},\n        {\"name\": \"Blue\", \"price_diff\": 3}\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/products/:product_id/variant_categories",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"products",
+										":product_id",
+										"variant_categories"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}",
+											"description": "The unique identifier of the product"
+										}
+									]
+								}
+							},
+							"status": "201 Created",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"variant_category\": {\n        \"id\": \"12345\",\n        \"name\": \"Color\",\n        \"options\": [\n            {\"name\": \"Red\", \"price_diff\": 5},\n            {\"name\": \"Blue\", \"price_diff\": 3}\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Variant Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"sizes\",\n    \"options\": [\n        {\n            \"name\": \"Small\",\n            \"price_difference\": 0\n        },\n        {\n            \"name\": \"Medium\",\n            \"price_difference\": 5\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"variant_categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						},
+						"description": "The `PUT /products/{product_id}/variant_categories/{id}` operation in the Gumroad API is used to update an existing variant category for a specific product. This operation allows you to modify details of a variant category associated with a product, enabling effective management of product variations.\n\n## Request Body\n\n| Name                  | Type   | Required | Description                                |\n|-----------------------|--------|----------|--------------------------------------------|\n| name                  | string | Yes      | The new name for the variant category.     |\n| options               | array  | Yes      | An array of options for the variant category. |\n| options[].name        | string | Yes      | The name of the option within the variant. |\n| options[].price_difference | integer | No       | Price difference for the option.           |\n\n## Response Body\n\n| Name                  | Type    | Description                                      |\n|-----------------------|---------|--------------------------------------------------|\n| success               | boolean | Indicates if the operation was successful.       |\n| message               | string  | A message describing the outcome of the operation.|\n"
+					},
+					"response": [
+						{
+							"name": "Update Variant Category",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"sizes\",\n    \"options\": [\n        {\n            \"name\": \"Small\",\n            \"price_difference\": 0\n        },\n        {\n            \"name\": \"Medium\",\n            \"price_difference\": 5\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"variant_categories",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"variant_category\": {\n        \"id\": \"mN7CdHiwHaR9FlxKvF-n-g==\",\n        \"title\": \"colors\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Variants",
+			"item": [
+				{
+					"name": "Add Variant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "Must be set to `application/json`."
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"red\",\n  \"price_difference\": 250,\n  \"purchasing_power_parity_prices\": {\n    \"US\": null,\n    \"IN\": null,\n    \"EC\": null\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:variant_category_id/variants",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"variant_categories",
+								":variant_category_id",
+								"variants"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "variant_category_id",
+									"value": "{{variant_category_id}}"
+								}
+							]
+						},
+						"description": "The `POST /products/{product_id}/variant_categories/{variant_category_id}/variants` operation in the Gumroad API allows you to add a new variant to an existing variant category for a specific product. This operation is essential for sellers who want to offer different options or variations of a product, such as size or color.\n\n## Request Body\n\n| Name | Type | Required | Description |\n|------|------|----------|-------------|\n| name | string | Yes | The name of the variant. |\n| price_difference | number | No | The price difference from the base product price. |\n| purchasing_power_parity_prices.US | number | No | Price for US market based on purchasing power parity. |\n| purchasing_power_parity_prices.IN | number | No | Price for Indian market based on purchasing power parity. |\n| purchasing_power_parity_prices.EC | number | No | Price for Ecuadorian market based on purchasing power parity. |\n\n## Response Body\n\n| Name | Type | Description |\n|------|------|-------------|\n| success | bool | Indicates if the operation was successful. |\n| variant.id | string | The unique identifier of the newly created variant. |\n| variant.name | string | The name of the variant. |\n| variant.price_difference | number | The price difference from the base product price. |"
+					},
+					"response": [
+						{
+							"name": "Adding a New Variant",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"red\",\n  \"price_difference\": 250\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:variant_category_id/variants",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"variant_categories",
+										":variant_category_id",
+										"variants"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "variant_category_id",
+											"value": "{{variant_category_id}}"
+										}
+									]
+								}
+							},
+							"status": "201 Created",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"variant\": {\n    \"id\": \"l5C1XQfr2TG3WXcGY7YrUg==\",\n    \"max_purchase_count\": null,\n    \"name\": \"red\",\n    \"price_difference_cents\": 100\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve Variant Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:variant_category_id/variants/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"variant_categories",
+								":variant_category_id",
+								"variants",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "variant_category_id",
+									"value": "{{variant_category_id}}"
+								},
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						},
+						"description": "The `GET /products/{product_id}/variant_categories/{variant_category_id}/variants/{id}` operation in the Gumroad API is used to retrieve detailed information about a specific variant of a product. This endpoint allows you to access variant-specific data within a given product and variant category, providing insights into the variant's attributes and configurations.\n\n## Response Body\n\n| Name                      | Type   | Description                                      |\n|---------------------------|--------|--------------------------------------------------|\n| `success`                 | bool   | Indicates if the request was successful.         |\n| `variant`                 | object | Contains the details of the variant.             |\n| `variant.name`            | string | The name of the variant.                         |\n| `variant.price_difference_cents` | int    | The price difference for this variant.           |\n| `variant.options`         | array  | List of options available for this variant.      |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Variant Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:variant_category_id/variants/:id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"variant_categories",
+										":variant_category_id",
+										"variants",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "variant_category_id",
+											"value": "{{variant_category_id}}"
+										},
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"variant\": {\n        \"id\": \"l5C1XQfr2TG3WXcGY7YrUg==\",\n        \"max_purchase_count\": null,\n        \"name\": \"red\",\n        \"price_difference_cents\": 100\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Variant",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:variant_category_id/variants/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"variant_categories",
+								":variant_category_id",
+								"variants",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "variant_category_id",
+									"value": "{{variant_category_id}}"
+								},
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						},
+						"description": "The `DELETE /products/:product_id/variant_categories/:variant_category_id/variants/:id` operation allows you to permanently delete a specific variant from a product's variant category in the Gumroad platform. This is useful for managing and maintaining the variants associated with a product, ensuring that only relevant and current options are available to customers.\n\n## Response Body\n\n| Name    | Type    | Description                                      |\n|---------|---------|--------------------------------------------------|\n| success | boolean | Indicates whether the deletion was successful.   |\n| message | string  | A message confirming the deletion of the variant.|"
+					},
+					"response": [
+						{
+							"name": "Deleting a Variant",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/A-m3CDDC5dlrSdKZp0RFhA==/variant_categories/mN7CdHiwHaR9FlxKvF-n-g==/variants/kuaXCPHTmRuoK13rNGVbxg==",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										"A-m3CDDC5dlrSdKZp0RFhA==",
+										"variant_categories",
+										"mN7CdHiwHaR9FlxKvF-n-g==",
+										"variants",
+										"kuaXCPHTmRuoK13rNGVbxg=="
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The variant has been deleted successfully.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve Variants of a Product's Variant Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:variant_category_id/variants",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"variant_categories",
+								":variant_category_id",
+								"variants"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "variant_category_id",
+									"value": "{{variant_category_id}}"
+								}
+							]
+						},
+						"description": "The `GET /products/{product_id}/variant_categories/{variant_category_id}/variants` operation retrieves all variants associated with a specific variant category of a product in the Gumroad platform. This operation is part of the Gumroad OAuth API, which allows developers to interact with various resources on the Gumroad platform. The purpose of this operation is to provide detailed information about the different variants available under a specified variant category for a given product.\n\n## Response Body\n\n| Name | Type | Description |\n|------|------|-------------|\n| `success` | bool | Indicates whether the request was successful. |\n| `variants` | array | An array of variant objects, each representing a different option available under the specified variant category. |\n| `variants[].id` | string | The unique identifier of the variant. |\n| `variants[].name` | string | The name of the variant. |\n| `variants[].price_difference` | integer | The price difference of the variant compared to the base product price. |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Variants of a Product's Variant Category",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:variant_category_id/variants",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"variant_categories",
+										":variant_category_id",
+										"variants"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "variant_category_id",
+											"value": "{{variant_category_id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"variants\": [\n        {\n            \"id\": \"l5C1XQfr2TG3WXcGY7YrUg==\",\n            \"max_purchase_count\": null,\n            \"name\": \"red\",\n            \"price_difference_cents\": 100\n        },\n        {...},\n        {...}\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Variant",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"red\",\n    \"price_difference\": 100,\n    \"purchasing_power_parity_prices\": {\n        \"US\": 120,\n        \"IN\": 80,\n        \"EC\": 90\n    },\n    \"is_pay_what_you_want\": false,\n    \"recurrence_prices\": {\n        \"monthly\": {\n            \"price_cents\": 500,\n            \"suggested_price_cents\": 600\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/variant_categories/:variant_category_id/variants/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"variant_categories",
+								":variant_category_id",
+								"variants",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "variant_category_id",
+									"value": "{{variant_category_id}}"
+								},
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						},
+						"description": "The `PUT /products/{product_id}/variant_categories/{variant_category_id}/variants/{id}` operation in the Gumroad API is used to update an existing variant of a product. This operation allows you to modify details of a specific variant within a variant category for a given product.\n\n## Request Body\n\n| Name | Type | Required | Description |\n|---------------------------|--------|----------|-----------------------------------------------------------------------------|\n| `name` | string | No | The new name of the variant. |\n| `price_difference` | number | No | The price difference from the base product price. |\n| `purchasing_power_parity_prices.US` | number | No | Price adjusted for purchasing power parity in the US. |\n| `purchasing_power_parity_prices.IN` | number | No | Price adjusted for purchasing power parity in India. |\n| `purchasing_power_parity_prices.EC` | number | No | Price adjusted for purchasing power parity in Ecuador. |\n| `is_pay_what_you_want` | boolean| No | Indicates if the variant is pay-what-you-want. |\n| `recurrence_prices.monthly.price_cents` | number | No | Monthly price in cents for membership products. |\n| `recurrence_prices.monthly.suggested_price_cents` | number | No | Suggested monthly price in cents if pay-what-you-want is true. |\n\n## Response Body\n\n| Name | Type | Description |\n|---------------------------|--------|-----------------------------------------------------------------------------|\n| `success` | boolean| Indicates whether the update was successful. |\n| `variant` | object | Contains the updated variant details. |\n| `variant.name` | string | The updated name of the variant. |\n| `variant.price_difference`| number | The updated price difference from the base product price. |\n| `variant.purchasing_power_parity_prices.US` | number | Updated price adjusted for purchasing power parity in the US. |\n| `variant.purchasing_power_parity_prices.IN` | number | Updated price adjusted for purchasing power parity in India. |\n| `variant.purchasing_power_parity_prices.EC` | number | Updated price adjusted for purchasing power parity in Ecuador. |\n| `variant.is_pay_what_you_want` | boolean | Updated indication if the variant is pay-what-you-want. |\n| `variant.recurrence_prices.monthly.price_cents` | number | Updated monthly price in cents for membership products. |\n| `variant.recurrence_prices.monthly.suggested_price_cents` | number | Updated suggested monthly price in cents if pay-what-you-want is true. |"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Offer Codes",
+			"item": [
+				{
+					"name": "Delete Offer Code",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/offer_codes/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"offer_codes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						},
+						"description": "The `DELETE /products/{product_id}/offer_codes/{id}` operation allows you to permanently delete a specific offer code associated with a product in the Gumroad API. By providing the product ID and the offer code ID, you can remove an offer code that is no longer needed or relevant.\n\n## Response Body\n\n| Name    | Type    | Description                                    |\n|---------|---------|------------------------------------------------|\n| success | boolean | Indicates whether the deletion was successful. |\n| message | string  | A message confirming the deletion.             |"
+					},
+					"response": [
+						{
+							"name": "Deleting an Offer Code",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/offer_codes/:id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"offer_codes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The offer_code has been deleted successfully.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Offer Code Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/offer_codes/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"offer_codes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						},
+						"description": "The `GET /products/{product_id}/offer_codes/{id}` operation retrieves the details of a specific offer code associated with a product in the Gumroad platform. This endpoint is part of the Gumroad OAuth API, which allows developers to interact with various resources on the Gumroad platform. The purpose of this operation is to provide detailed information about an offer code, including its properties and current status.\n\n## Response Body\n\n| Name                  | Type   | Description                                      |\n|-----------------------|--------|--------------------------------------------------|\n| success               | bool   | Indicates if the request was successful.         |\n| offer_code.id         | string | The unique identifier of the offer code.         |\n| offer_code.code       | string | The actual code used for the offer.              |\n| offer_code.discount   | number | The discount value associated with the offer.    |\n| offer_code.expiration | date   | The expiration date of the offer code.           |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Offer Code Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/offer_codes/:id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"offer_codes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "id",
+											"value": "{{id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"offer_code\": {\n    \"id\": \"mN7CdHiwHaR9FlxKvF-n-g==\",\n    \"name\": \"1OFF\",\n    \"amount_cents\": 100,\n    \"max_purchase_count\": null,\n    \"times_used\": 1\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Offer Code",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/offer_codes/:id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"offer_codes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "id",
+									"value": "{{id}}"
+								}
+							]
+						},
+						"description": "The `PUT /products/{product_id}/offer_codes/{id}` operation in the Gumroad API is used to update an existing offer code for a specific product. This operation allows you to modify details of an offer code associated with a product, such as its discount percentage or expiration date.\n\n## Request Body\n\n| Name                 | Type   | Required | Description                                                |\n|----------------------|--------|----------|------------------------------------------------------------|\n| discount_percentage  | number | No       | The new discount percentage for the offer code.            |\n| expiration_date      | string | No       | The new expiration date for the offer code (ISO 8601).     |\n| max_purchase_count   | number | No       | The maximum number of times the offer code can be used.    |\n\n## Response Body\n\n| Name                        | Type   | Description                                           |\n|-----------------------------|--------|-------------------------------------------------------|\n| success                     | bool   | Indicates if the operation was successful.            |\n| offer_code.id               | string | The unique identifier of the updated offer code.      |\n| offer_code.name             | string | The name of the offer code.                           |\n| offer_code.amount_cents     | number | The amount in cents for the offer code.               |\n| offer_code.max_purchase_count | number | The maximum purchase count for the offer code.        |\n| offer_code.universal        | bool   | Indicates if the offer code is universal.             |"
+					},
+					"response": [
+						{
+							"name": "Update Offer Code",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "max_purchase_count",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/A-m3CDDC5dlrSdKZp0RFhA==/offer_codes/bfi_30HLgGWL8H2wo_Gzlg==",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										"A-m3CDDC5dlrSdKZp0RFhA==",
+										"offer_codes",
+										"bfi_30HLgGWL8H2wo_Gzlg=="
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n\"success\": true,\n\"offer_code\": {\n\"id\": \"mN7CdHiwHaR9FlxKvF-n-g==\",\n\"name\": \"1OFF\",\n\"amount_cents\": 100,\n\"max_purchase_count\": 10,\n\"universal\": false\n}\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Offer Code",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"1OFF\",\n  \"amount_off\": 100,\n  \"offer_type\": \"cents\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/offer_codes",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"offer_codes"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Creating an Offer Code",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"1OFF\",\n  \"amount_off\": 100,\n  \"offer_type\": \"cents\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/offer_codes",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"offer_codes"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										}
+									]
+								}
+							},
+							"status": "201 Created",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"offer_code\": {\n    \"id\": \"mN7CdHiwHaR9FlxKvF-n-g==\",\n    \"name\": \"1OFF\",\n    \"amount_cents\": 100,\n    \"max_purchase_count\": null,\n    \"times_used\": 1\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve Offer Codes for a Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/offer_codes",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"offer_codes"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								}
+							]
+						},
+						"description": "The `GET /products/{product_id}/offer_codes` operation in the Gumroad API is used to retrieve all offer codes associated with a specific product. This operation allows you to view discount codes that can be applied to the product identified by the `product_id`. The expected outcome is a list of offer codes, each detailing the discount and conditions under which it can be applied.\n\n## Response Body\n\n| Name                  | Type   | Required | Description                                                  |\n|-----------------------|--------|----------|--------------------------------------------------------------|\n| success               | bool   |          | Indicates if the request was successful.                     |\n| offer_codes           | array  |          | A list of offer codes associated with the product.           |\n| offer_codes.id        | string |          | The unique identifier of the offer code.                     |\n| offer_codes.discount  | number |          | The discount percentage or amount provided by the offer code.|\n| offer_codes.expiry    | date   |          | The expiration date of the offer code.                       |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Offer Codes for a Product",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/offer_codes",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"offer_codes"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"offer_codes\": [\n        {\n            \"id\": \"mN7CdHiwHaR9FlxKvF-n-g==\",\n            \"name\": \"1OFF\",\n            \"amount_cents\": 100,\n            \"max_purchase_count\": null,\n            \"universal\": false,\n            \"times_used\": 1\n        },\n        {\n            \"id\": \"l5C1XQfr2TG3WXcGY7-r-g==\",\n            \"name\": \"HALFOFF\",\n            \"percent_off\": 50,\n            \"max_purchase_count\": null,\n            \"universal\": false,\n            \"times_used\": 1\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Custom Fields",
+			"item": [
+				{
+					"name": "Delete Custom Field",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/custom_fields/:name",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"custom_fields",
+								":name"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "name",
+									"value": "{{name}}"
+								}
+							]
+						},
+						"description": "The `DELETE /products/{product_id}/custom_fields/{name}` operation allows you to delete a specific custom field associated with a product on the Gumroad platform. By specifying the product ID and the name of the custom field, you can remove unnecessary or outdated custom fields from your products.\n\n## Response Body\n\n| Name    | Type    | Description                                      |\n|---------|---------|--------------------------------------------------|\n| success | boolean | Indicates whether the operation was successful.  |\n| message | string  | A message confirming the deletion.               |"
+					},
+					"response": [
+						{
+							"name": "Deleting a Custom Field",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/A-m3CDDC5dlrSdKZp0RFhA==/custom_fields/phone number",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										"A-m3CDDC5dlrSdKZp0RFhA==",
+										"custom_fields",
+										"phone number"
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The custom_field has been deleted successfully.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Custom Fields for a Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/custom_fields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"custom_fields"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique identifier of the product whose custom fields are being retrieved."
+								}
+							]
+						},
+						"description": "The `GET /products/{product_id}/custom_fields` operation retrieves the custom fields associated with a specific product in the Gumroad platform. This endpoint is part of the Gumroad OAuth API, which allows developers to interact with various resources on the Gumroad platform. The purpose of this operation is to provide detailed information about the custom fields that have been defined for a particular product, enabling you to understand and manage these fields effectively.\n\n## Response Body\n\n| Name           | Type  | Description                                                                 |\n|----------------|-------|-----------------------------------------------------------------------------|\n| success        | bool  | Indicates whether the request was successful.                              |\n| custom_fields  | array | A list of custom fields associated with the product. Each custom field contains details such as its name, type, and value. |"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Custom Field",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "value",
+									"value": "",
+									"description": "The new value for the custom field."
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/custom_fields/:name",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"custom_fields",
+								":name"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "name",
+									"value": "{{name}}"
+								}
+							]
+						},
+						"description": "The `PUT /products/{product_id}/custom_fields/{name}` operation in the Gumroad API is used to update a custom field for a specific product. This operation allows you to modify existing custom fields associated with a product, enabling you to tailor product information to better suit your needs or preferences.\n\n## Request Body\n\n| Name  | Type   | Required | Description                              |\n|-------|--------|----------|------------------------------------------|\n| value | string | Yes      | The new value for the custom field.      |\n\n## Response Body\n\n| Name          | Type   | Description                                    |\n|---------------|--------|------------------------------------------------|\n| success       | bool   | Indicates if the operation was successful.     |\n| message       | string | A message confirming the update of the custom field. |"
+					},
+					"response": [
+						{
+							"name": "Update a Custom Field",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "value",
+											"value": "",
+											"description": "The new value for the custom field."
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/custom_fields/:name",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"custom_fields",
+										":name"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "name",
+											"value": "{{name}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"custom_field\": {\n        \"name\": \"phone number\",\n        \"required\": \"false\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Custom Field to Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "phone number",
+									"description": "The name of the custom field."
+								},
+								{
+									"key": "value",
+									"value": "true",
+									"description": "The value assigned to the custom field."
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/custom_fields",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"custom_fields"
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								}
+							]
+						},
+						"description": "The `POST /products/{product_id}/custom_fields` operation allows you to add custom fields to a specific product in the Gumroad platform. This operation is part of the Gumroad OAuth API, which enables developers to interact with various resources on the Gumroad platform. By using this endpoint, you can enhance your product listings with additional information that may be relevant to your customers.\n\n## Request Body\n\n| Name | Type | Required | Description |\n|------|------|----------|-------------|\n| name | string | Yes | The name of the custom field. |\n| value | string | Yes | The value assigned to the custom field. |\n\n## Response Body\n\n| Name | Type | Description |\n|------|------|-------------|\n| success | bool | Indicates whether the operation was successful. |\n| message | string | A message confirming the addition of the custom field. |"
+					},
+					"response": [
+						{
+							"name": "Adding a Custom Field to a Product",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "phone number"
+										},
+										{
+											"key": "value",
+											"value": "true"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/custom_fields",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"custom_fields"
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										}
+									]
+								}
+							},
+							"status": "201 Created",
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"custom_field\": {\n        \"name\": \"phone number\",\n        \"required\": \"false\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get User Information",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/user",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"user"
+							]
+						},
+						"description": "The `GET /user` operation in the Gumroad API retrieves information about the authenticated user, including their public profile details and associated data. This is a read-only operation that provides insights into the user's account on Gumroad.\n\n## Response Body\n\n| Name          | Type   | Description                                           |\n|---------------|--------|-------------------------------------------------------|\n| user.id       | String | Unique identifier for the user.                       |\n| user.name     | String | The name of the user.                                 |\n| user.email    | String | The email address associated with the user.           |\n| user.products | Array  | List of products associated with the user.            |"
+					},
+					"response": [
+						{
+							"name": "Retrieve User Data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/user",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"user"
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"user\": {\n        \"bio\": \"a sailor, a tailor\",\n        \"name\": \"John Smith\",\n        \"twitter_handle\": null,\n        \"user_id\": \"G_-mnBf9b1j9A7a4ub4nFQ==\",\n        \"email\": \"johnsmith@gumroad.com\",\n        \"url\": \"https://gumroad.com/sailorjohn\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Resource Subscriptions",
+			"item": [
+				{
+					"name": "Unsubscribe from a resource",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/resource_subscriptions/:resource_subscription_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"resource_subscriptions",
+								":resource_subscription_id"
+							],
+							"variable": [
+								{
+									"key": "resource_subscription_id",
+									"value": "{{resource_subscription_id}}",
+									"description": "The unique identifier of the resource subscription to be deleted."
+								}
+							]
+						},
+						"description": "The \"Unsubscribe from a resource\" operation allows you to unsubscribe from a specific resource subscription in the Gumroad API. This operation is useful for managing and removing subscriptions that are no longer needed. By calling this endpoint, the specified resource subscription will be deleted successfully.\n\n## Response Body\n\n| Name    | Type    | Description                                                |\n|---------|---------|------------------------------------------------------------|\n| success | boolean | Indicates whether the operation was successful.            |\n| message | string  | A message confirming the deletion of the resource subscription. |"
+					},
+					"response": [
+						{
+							"name": "Unsubscribe from a resource subscription",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/resource_subscriptions/:resource_subscription_id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"resource_subscriptions",
+										":resource_subscription_id"
+									],
+									"variable": [
+										{
+											"key": "resource_subscription_id",
+											"value": "{{resource_subscription_id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The resource_subscription was deleted successfully.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Resource Subscription",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "resource_name",
+									"value": "sale",
+									"description": "The name of the resource to subscribe to (e.g., 'sale', 'refund').",
+									"type": "text"
+								},
+								{
+									"key": "post_url",
+									"value": "https://postatmebro.com",
+									"description": "The URL to which notifications will be sent when the subscribed event occurs.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/resource_subscriptions",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"resource_subscriptions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Resource Subscription",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "resource_name",
+											"value": "sale",
+											"type": "text"
+										},
+										{
+											"key": "post_url",
+											"value": "https://postatmebro.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/resource_subscriptions",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"resource_subscriptions"
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"resource_subscription\": {\n        \"id\": \"G_-mnBf9b1j9A7a4ub4nFQ==\",\n        \"resource_name\": \"sale\",\n        \"post_url\": \"https://postatmebro.com\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Resource Subscription Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/resource_subscriptions/:resource_subscription_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"resource_subscriptions",
+								":resource_subscription_id"
+							],
+							"variable": [
+								{
+									"key": "resource_subscription_id",
+									"value": "{{resource_subscription_id}}",
+									"description": "The unique identifier for the resource subscription"
+								}
+							]
+						},
+						"description": "The `GET /resource_subscriptions/{resource_subscription_id}` operation retrieves the details of a specific resource subscription in the Gumroad API. This operation allows you to access information about your subscriptions to various resources such as sales, refunds, disputes, and more.\n\n## Response Body\n\n| Name | Type | Description |\n|-----------------------|--------|-------------------------------------------------------|\n| success | bool | Indicates if the request was successful |\n| resource_subscription | object | Contains the details of the resource subscription |\n| resource_subscription.id | string | The unique identifier for the resource subscription |\n| resource_subscription.resource_name | string | The name of the resource subscribed to |\n| resource_subscription.post_url | string | The URL where updates are posted |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Resource Subscription Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/resource_subscriptions/:resource_subscription_id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"resource_subscriptions",
+										":resource_subscription_id"
+									],
+									"variable": [
+										{
+											"key": "resource_subscription_id",
+											"value": "{{resource_subscription_id}}",
+											"description": "The unique identifier for the resource subscription"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"resource_subscription\": {\n        \"id\": \"G_-mnBf9b1j9A7a4ub4nFQ==\",\n        \"resource_name\": \"sale\",\n        \"post_url\": \"https://postatmebro.com\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Sales",
+			"item": [
+				{
+					"name": "Refund a Sale",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/sales/:sale_id/refund",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"sales",
+								":sale_id",
+								"refund"
+							],
+							"variable": [
+								{
+									"key": "sale_id",
+									"value": "{{sale_id}}",
+									"description": "The unique identifier of the sale to be refunded."
+								}
+							]
+						},
+						"description": "The `PUT /sales/{sale_id}/refund` operation in the Gumroad API allows you to refund a specific sale. This operation is essential for sellers who need to process refunds for their customers. By calling this endpoint, the specified sale will be refunded, and the transaction will be reversed.\n\n## Response Body\n\n| Name    | Type    | Description                                |\n|---------|---------|--------------------------------------------|\n| success | boolean | Indicates whether the refund was successful.|\n| message | string  | A message confirming the refund action.     |"
+					},
+					"response": [
+						{
+							"name": "Successful Refund",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/sales/:sale_id/refund",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"sales",
+										":sale_id",
+										"refund"
+									],
+									"variable": [
+										{
+											"key": "sale_id",
+											"value": "{{sale_id}}",
+											"description": "The unique identifier of the sale to be refunded."
+										}
+									]
+								},
+								"description": "The `PUT /sales/{sale_id}/refund` operation in the Gumroad API allows you to refund a specific sale. This operation is essential for sellers who need to process refunds for their customers. By calling this endpoint, the specified sale will be refunded, and the transaction will be reversed.\n\n## Response Body\n\n| Name    | Type    | Description                                |\n|---------|---------|--------------------------------------------|\n| success | boolean | Indicates whether the refund was successful.|\n| message | string  | A message confirming the refund action.     |"
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The sale was refunded successfully.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve Sale Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/sales/:sale_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"sales",
+								":sale_id"
+							],
+							"variable": [
+								{
+									"key": "sale_id",
+									"value": "{{sale_id}}",
+									"description": "The unique identifier of the sale"
+								}
+							]
+						},
+						"description": "The `GET /sales/{sale_id}` operation retrieves the details of a specific sale by you, the authenticated user. This operation is part of the Gumroad API, also referred to as the Gumroad Oauth API. It provides comprehensive information about a sale, including product details, purchaser information, and transaction specifics.\n\n## Response Body\n\n| Name | Type | Description |\n|-------------------------------------|---------|-----------------------------------------------------------------------------|\n| success | boolean | Indicates if the request was successful |\n| sale.id | string | Unique identifier of the sale |\n| sale.email | string | Email of the purchaser |\n| sale.seller_id | string | Unique identifier of the seller |\n| sale.timestamp | string | Human-readable timestamp of the sale |\n| sale.daystamp | string | Date and time of the sale |\n| sale.created_at | string | ISO 8601 formatted creation date of the sale |\n| sale.product_name | string | Name of the product sold |\n| sale.product_has_variants | boolean | Indicates if the product has variants |\n| sale.price | integer | Price of the product in cents |\n| sale.gumroad_fee | integer | Fee charged by Gumroad in cents |\n| sale.subscription_duration | string | Duration of the subscription if applicable |\n| sale.formatted_display_price | string | Formatted display price |\n| sale.formatted_total_price | string | Formatted total price |\n| sale.currency_symbol | string | Currency symbol used |\n| sale.amount_refundable_in_currency | string | Amount refundable in currency |\n| sale.product_id | string | Unique identifier of the product |\n| sale.product_permalink | string | Permalink of the product |\n| sale.partially_refunded | boolean | Indicates if the sale was partially refunded |\n| sale.chargedback | boolean | Indicates if the sale was charged back |\n| sale.purchase_email | string | Email used for the purchase |\n| sale.zip_code | string | Zip code of the purchaser |\n| sale.paid | boolean | Indicates if the sale was paid |\n| sale.has_variants | boolean | Indicates if the sale includes product variants |\n| sale.variants.Tier | string | Tier of the product variant |\n| sale.variants_and_quantity | string | Description of variants and quantity |\n| sale.has_custom_fields | boolean | Indicates if custom fields are present |\n| sale.custom_fields | object | Custom fields associated with the sale |\n| sale.order_id | integer | Order ID of the sale |\n| sale.is_product_physical | boolean | Indicates if the product is physical |\n| sale.purchaser_id | string | Unique identifier of the purchaser |\n| sale.is_recurring_billing | boolean | Indicates if the billing is recurring |\n| sale.can_contact | boolean | Indicates if the seller can contact the purchaser |\n| sale.is_following | boolean | Indicates if the purchaser is following the seller |\n| sale.disputed | boolean | Indicates if the sale is disputed |\n| sale.dispute_won | boolean | Indicates if the dispute was won |\n| sale.is_additional_contribution | boolean | Indicates if there was an additional contribution |\n| sale.discover_fee_charged | boolean | Indicates if a discover fee was charged |\n| sale.is_gift_sender_purchase | boolean | Indicates if the purchase was a gift from the sender |\n| sale.is_gift_receiver_purchase | boolean | Indicates if the purchase was a gift for the receiver |\n| sale.referrer | string | Referrer URL |\n| sale.card.visual | string | Visual representation of the card used |\n| sale.card.type | string | Type of card used |\n| sale.product_rating | null | Product rating (if available) |\n| sale.reviews_count | integer | Number of reviews |\n| sale.average_rating | integer | Average rating |\n| sale.subscription_id | string | Subscription ID if applicable |\n| sale.cancelled | boolean | Indicates if the sale was cancelled |\n| sale.ended | boolean | Indicates if the subscription ended |\n| sale.recurring_charge | boolean | Indicates if there was a recurring charge |\n| sale.license_key | string | License key associated with the sale |\n| sale.license_id | string | License ID associated with the sale |\n| sale.license_disabled | boolean | Indicates if the license is disabled |\n| sale.affiliate.email | string | Email of the affiliate |\n| sale.affiliate.amount | string | Amount earned by the affiliate |\n| sale.offer_code.name | string | Name of the offer code applied |\n| sale.offer_code.displayed_amount_off| string | Displayed amount off for the offer code |\n| sale.quantity | integer | Quantity of the product purchased |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Sale Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/sales/:sale_id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"sales",
+										":sale_id"
+									],
+									"variable": [
+										{
+											"key": "sale_id",
+											"value": "{{sale_id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"sale\": {\n        \"id\": \"FO8TXN-dvxYabdavG97Y-Q==\",\n        \"email\": \"calvin@gumroad.com\",\n        \"seller_id\": \"kL0paVL2SdmJSYsNs-OCMg==\",\n        \"timestamp\": \"about 2 months ago\",\n        \"daystamp\": \"5 Jan 2021 11:38 AM\",\n        \"created_at\": \"2021-01-05T19:38:56Z\",\n        \"product_name\": \"Pencil Icon PSD\",\n        \"product_has_variants\": true,\n        \"price\": 1000,\n        \"gumroad_fee\": 60,\n        \"subscription_duration\": \"monthly\",\n        \"formatted_display_price\": \"$10 a month\",\n        \"formatted_total_price\": \"$10 a month\",\n        \"currency_symbol\": \"$\",\n        \"amount_refundable_in_currency\": \"0\",\n        \"product_id\": \"32-nPainqpLj1B_WIwVlMw==\",\n        \"product_permalink\": \"XCBbJ\",\n        \"partially_refunded\": false,\n        \"chargedback\": false,\n        \"purchase_email\": \"calvin@gumroad.com\",\n        \"zip_code\": \"625003\",\n        \"paid\": false,\n        \"has_variants\": true,\n        \"variants\": {\n            \"Tier\": \"Premium\"\n        },\n        \"variants_and_quantity\": \"(Premium)\",\n        \"has_custom_fields\": false,\n        \"custom_fields\": {},\n        \"order_id\": 524459995,\n        \"is_product_physical\": false,\n        \"purchaser_id\": \"5530311507811\",\n        \"is_recurring_billing\": true,\n        \"can_contact\": true,\n        \"is_following\": false,\n        \"disputed\": false,\n        \"dispute_won\": false,\n        \"is_additional_contribution\": false,\n        \"discover_fee_charged\": false,\n        \"is_gift_sender_purchase\": false,\n        \"is_gift_receiver_purchase\": false,\n        \"referrer\": \"direct\",\n        \"card\": {\n            \"visual\": null,\n            \"type\": null\n        },\n        \"product_rating\": null,\n        \"reviews_count\": 0,\n        \"average_rating\": 0,\n        \"subscription_id\": \"GazW4_NBcQy-o7Gjjng7lw==\",\n        \"cancelled\": false,\n        \"ended\": false,\n        \"recurring_charge\": false,\n        \"license_key\": \"83DB262A-C19D3B06-A5235A6B-8C079166\",\n        \"license_id\": \"bEtKQ3Zu9SgNopem0-ZywA==\",\n        \"license_disabled\": false,\n        \"affiliate\": {\n            \"email\": \"affiliate@example.com\",\n            \"amount\": \"$2.50\"\n        },\n        \"offer_code\": {\n            \"name\": \"FLAT50\",\n            \"displayed_amount_off\": \"50%\"\n        },\n        \"quantity\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve Sales Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/sales?after={{after}}&before={{before}}&product_id={{product_id}}&email={{email}}&order_id={{order_id}}&page_key={{page_key}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"sales"
+							],
+							"query": [
+								{
+									"key": "after",
+									"value": "{{after}}",
+									"description": "Only return sales after this date (YYYY-MM-DD)."
+								},
+								{
+									"key": "before",
+									"value": "{{before}}",
+									"description": "Only return sales before this date (YYYY-MM-DD)."
+								},
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "Filter sales by this product ID."
+								},
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"description": "Filter sales by this email address."
+								},
+								{
+									"key": "order_id",
+									"value": "{{order_id}}",
+									"description": "Filter sales by this Order ID."
+								},
+								{
+									"key": "page_key",
+									"value": "{{page_key}}",
+									"description": "A key representing a page of results."
+								}
+							]
+						},
+						"description": "The `GET /sales` operation retrieves all successful sales made by you, the authenticated user. You can filter sales based on various parameters such as date range, product ID, email, and order ID.\n\n## Response Body\n\n| Name | Type | Description |\n|-----------------------------|---------|-----------------------------------------------------------------------------|\n| success | boolean | Indicates if the request was successful. |\n| next_page_url | string | URL for the next page of results, if available. |\n| next_page_key | string | Key for the next page of results, if available. |\n| sales | array | List of sales objects. |\n| sales.id | string | Unique identifier for the sale. |\n| sales.email | string | Email of the purchaser. |\n| sales.seller_id | string | Unique identifier for the seller. |\n| sales.timestamp | string | Human-readable timestamp of the sale. |\n| sales.daystamp | string | Date and time of the sale. |\n| sales.created_at | string | ISO 8601 formatted creation date of the sale. |\n| sales.product_name | string | Name of the product sold. |\n| sales.product_has_variants | boolean | Indicates if the product has variants. |\n| sales.price | integer | Price of the product in cents. |\n| sales.gumroad_fee | integer | Fee charged by Gumroad in cents. |\n| sales.subscription_duration | string | Duration of the subscription, if applicable. |\n| sales.formatted_display_price | string | Formatted display price of the product. |\n| sales.formatted_total_price | string | Formatted total price of the product. |\n| sales.currency_symbol | string | Currency symbol used for the sale. |\n| sales.amount_refundable_in_currency | string | Amount refundable in the currency of the sale. |\n| sales.product_id | string | Unique identifier for the product. |\n| sales.product_permalink | string | Permalink for the product. |\n| sales.partially_refunded | boolean | Indicates if the sale was partially refunded. |\n| sales.chargedback | boolean | Indicates if the sale was charged back. |\n| sales.purchase_email | string | Email used for the purchase. |\n| sales.zip_code | string | Zip code of the purchaser. |\n| sales.paid | boolean | Indicates if the sale was paid. |\n| sales.has_variants | boolean | Indicates if the sale includes product variants. |\n| sales.variants | object | Details of the product variants. |\n| sales.variants_and_quantity | string | Description of the variants and their quantities. |\n| sales.has_custom_fields | boolean | Indicates if the sale includes custom fields. |\n| sales.custom_fields | object | Custom fields associated with the sale. |\n| sales.order_id | integer | Order ID of the sale. |\n| sales.is_product_physical | boolean | Indicates if the product is physical. |\n| sales.purchaser_id | string | Unique identifier for the purchaser. |\n| sales.is_recurring_billing | boolean | Indicates if the billing is recurring. |\n| sales.can_contact | boolean | Indicates if the seller can contact the purchaser. |\n| sales.is_following | boolean | Indicates if the purchaser is following the seller. |\n| sales.disputed | boolean | Indicates if the sale is disputed. |\n| sales.dispute_won | boolean | Indicates if the dispute was won. |\n| sales.is_additional_contribution | boolean | Indicates if the sale includes an additional contribution. |\n| sales.discover_fee_charged | boolean | Indicates if a discover fee was charged. |\n| sales.is_gift_sender_purchase | boolean | Indicates if the sale was a gift sender purchase. |\n| sales.is_gift_receiver_purchase | boolean | Indicates if the sale was a gift receiver purchase. |\n| sales.referrer | string | Referrer URL for the sale. |\n| sales.card | object | Card details used for the purchase. |\n| sales.product_rating | null | Product rating, if available. |\n| sales.reviews_count | integer | Number of reviews for the product. |\n| sales.average_rating | integer | Average rating of the product. |\n| sales.subscription_id | string | Subscription ID, if applicable. |\n| sales.cancelled | boolean | Indicates if the subscription was cancelled. |\n| sales.ended | boolean | Indicates if the subscription ended. |\n| sales.recurring_charge | boolean | Indicates if there was a recurring charge. |\n| sales.license_key | string | License key for the product, if applicable. |\n| sales.license_id | string | License ID for the product, if applicable. |\n| sales.license_disabled | boolean | Indicates if the license is disabled. |\n| sales.affiliate | object | Affiliate details associated with the sale. |\n| sales.quantity | integer | Quantity of the product sold. |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Sales Data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/sales?after=2020-09-03&before=2021-09-03&product_id=bfi_30HLgGWL8H2wo_Gzlg==&email=calvin@gumroad.com",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"sales"
+									],
+									"query": [
+										{
+											"key": "after",
+											"value": "2020-09-03"
+										},
+										{
+											"key": "before",
+											"value": "2021-09-03"
+										},
+										{
+											"key": "product_id",
+											"value": "bfi_30HLgGWL8H2wo_Gzlg=="
+										},
+										{
+											"key": "email",
+											"value": "calvin@gumroad.com"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\"success\": true,\n\"next_page_url\": \"/v2/sales?page_key=20230119081040000000-123456&before=2021-09-03&after=2020-09-03&email=calvin%40gumroad.com\",\n\"next_page_key\": \"20230119081040000000-123456\",\n\"sales\": [\n{\n\"id\": \"B28UKN-dvxYabdavG97Y-Q==\",\n\"email\": \"calvin@gumroad.com\",\n\"seller_id\": \"kL0paVL2SdmJSYsNs-OCMg==\",\n\"timestamp\": \"about 2 months ago\",\n\"daystamp\": \" 5 Jan 2021 11:38 AM\",\n\"created_at\": \"2021-01-05T19:38:56Z\",\n\"product_name\": \"Pencil Icon PSD\",\n\"product_has_variants\": true,\n\"price\": 1000,\n\"gumroad_fee\": 60,\n\"subscription_duration\": \"monthly\",\n\"formatted_display_price\": \"$10 a month\",\n\"formatted_total_price\": \"$10 a month\",\n\"currency_symbol\": \"$\",\n\"amount_refundable_in_currency\": \"0\",\n\"product_id\": \"32-nPainqpLj1B_WIwVlMw==\",\n\"product_permalink\": \"XCBbJ\",\n\"partially_refunded\": false,\n\"chargedback\": false,\n\"purchase_email\": \"calvin@gumroad.com\",\n\"zip_code\": \"625003\",\n\"paid\": false,\n\"has_variants\": true,\n\"variants\": {\n\"Tier\": \"Premium\"\n},\n\"variants_and_quantity\": \"(Premium)\",\n\"has_custom_fields\": true,\n\"custom_fields\": {\"Twitter handle\": \"@gumroad\"},\n\"order_id\": 524459995,\n\"is_product_physical\": false,\n\"purchaser_id\": \"5530311507811\",\n\"is_recurring_billing\": true,\n\"can_contact\": true,\n\"is_following\": false,\n\"disputed\": false,\n\"dispute_won\": false,\n\"is_additional_contribution\": false,\n\"discover_fee_charged\": false,\n\"is_gift_sender_purchase\": false,\n\"is_gift_receiver_purchase\": false,\n\"referrer\": \"https://www.facebook.com\",\n\"card\": {\n\"visual\": null,\n\"type\": null\n},\n\"product_rating\": null,\n\"reviews_count\": 0,\n\"average_rating\": 0,\n\"subscription_id\": \"GazW4_NBcQy-o7Gjjng7lw==\",\n\"cancelled\": false,\n\"ended\": false,\n\"recurring_charge\": false,\n\"license_key\": \"83DB262A-C19D3B06-A5235A6B-8C079166\",\n\"license_id\": \"bEtKQ3Zu9SgNopem0-ZywA==\",\n\"license_disabled\": false,\n\"affiliate\": {\n\"email\": \"affiliate@example.com\",\n\"amount\": \"$2.50\"\n},\n\"quantity\": 1\n}\n]\n}"
+						}
+					]
+				},
+				{
+					"name": "Mark Sale as Shipped",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "tracking_url",
+									"value": "https://www.shippingcompany.com/track/t123",
+									"description": "The URL for tracking the shipment, if available."
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/sales/:id/mark_as_shipped",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"sales",
+								":id",
+								"mark_as_shipped"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{id}}",
+									"description": "The unique identifier of the sale to be marked as shipped."
+								}
+							]
+						},
+						"description": "The `PUT /sales/{id}/mark_as_shipped` operation in the Gumroad API is used to mark a specific sale as shipped. This operation is particularly useful for sellers who need to update the shipping status of physical products sold through Gumroad. By marking a sale as shipped, you can provide tracking information to your customers, enhancing transparency and customer satisfaction.\n\n## Request Body\n\n| Name         | Type   | Required | Description                                      |\n|--------------|--------|----------|--------------------------------------------------|\n| tracking_url | string | No       | The URL for tracking the shipment, if available. |\n\n## Response Body\n\n| Name                                | Type    | Description                                                      |\n|-------------------------------------|---------|------------------------------------------------------------------|\n| success                             | boolean | Indicates whether the operation was successful.                  |\n| sale.id                             | string  | The unique identifier of the sale.                               |\n| sale.email                          | string  | The email address of the purchaser.                              |\n| sale.seller_id                      | string  | The unique identifier of the seller.                             |\n| sale.timestamp                      | string  | A human-readable timestamp of when the sale occurred.            |\n| sale.daystamp                       | string  | A formatted date and time of the sale.                           |\n| sale.created_at                     | string  | The ISO 8601 timestamp of when the sale was created.             |\n| sale.product_name                   | string  | The name of the product sold.                                    |\n| sale.price                          | integer | The price of the product in cents.                               |\n| sale.gumroad_fee                    | integer | The fee charged by Gumroad for the sale.                         |\n| sale.formatted_display_price        | string  | The formatted display price of the product.                      |\n| sale.amount_refundable_in_currency  | string  | The amount refundable in the currency of the sale.               |\n| sale.purchase_email                 | string  | The email address used for the purchase.                         |\n| sale.full_name                      | string  | The full name of the purchaser.                                  |\n| sale.street_address                 | string  | The street address of the purchaser.                             |\n| sale.city                           | string  | The city of the purchaser.                                       |\n| sale.state                          | string  | The state of the purchaser.                                      |\n| sale.zip_code                       | string  | The zip code of the purchaser.                                   |\n| sale.country                        | string  | The country of the purchaser.                                    |\n| sale.paid                           | boolean | Indicates if the sale has been paid.                             |\n| sale.has_variants                   | boolean | Indicates if the product has variants.                           |\n| sale.variants                       | object  | Details about the product variants.                              |\n| sale.order_id                       | integer | The order ID associated with the sale.                           |\n| sale.is_product_physical            | boolean | Indicates if the product is physical.                            |\n| sale.purchaser_id                   | string  | The unique identifier of the purchaser.                          |\n| sale.is_recurring_billing           | boolean | Indicates if the billing is recurring.                           |\n| sale.can_contact                    | boolean | Indicates if the seller can contact the purchaser.               |\n| sale.referrer                       | string  | The referrer URL for the sale.                                   |\n| sale.card                           | object  | Information about the card used for the purchase.                |\n| sale.shipped                        | boolean | Indicates if the sale has been marked as shipped.                |\n| sale.tracking_url                   | string  | The URL for tracking the shipment.                               |\n| sale.license_key                    | string  | The license key associated with the sale.                        |\n| sale.affiliate                      | object  | Information about the affiliate involved in the sale.            |\n| sale.quantity                       | integer | The quantity of the product sold.                                |\n"
+					},
+					"response": [
+						{
+							"name": "Marking a Sale as Shipped",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "tracking_url",
+											"value": "https://www.shippingcompany.com/track/t123",
+											"description": "The URL for tracking the shipment, if available."
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/sales/:id/mark_as_shipped",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"sales",
+										":id",
+										"mark_as_shipped"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "{{id}}",
+											"description": "The unique identifier of the sale to be marked as shipped."
+										}
+									]
+								},
+								"description": "The `PUT /sales/{id}/mark_as_shipped` operation in the Gumroad API is used to mark a specific sale as shipped. This operation is particularly useful for sellers who need to update the shipping status of physical products sold through Gumroad. By marking a sale as shipped, you can provide tracking information to your customers, enhancing transparency and customer satisfaction.\n\n## Request Body\n\n| Name         | Type   | Required | Description                                      |\n|--------------|--------|----------|--------------------------------------------------|\n| tracking_url | string | No       | The URL for tracking the shipment, if available. |\n\n## Response Body\n\n| Name                                | Type    | Description                                                      |\n|-------------------------------------|---------|------------------------------------------------------------------|\n| success                             | boolean | Indicates whether the operation was successful.                  |\n| sale.id                             | string  | The unique identifier of the sale.                               |\n| sale.email                          | string  | The email address of the purchaser.                              |\n| sale.seller_id                      | string  | The unique identifier of the seller.                             |\n| sale.timestamp                      | string  | A human-readable timestamp of when the sale occurred.            |\n| sale.daystamp                       | string  | A formatted date and time of the sale.                           |\n| sale.created_at                     | string  | The ISO 8601 timestamp of when the sale was created.             |\n| sale.product_name                   | string  | The name of the product sold.                                    |\n| sale.price                          | integer | The price of the product in cents.                               |\n| sale.gumroad_fee                    | integer | The fee charged by Gumroad for the sale.                         |\n| sale.formatted_display_price        | string  | The formatted display price of the product.                      |\n| sale.amount_refundable_in_currency  | string  | The amount refundable in the currency of the sale.               |\n| sale.purchase_email                 | string  | The email address used for the purchase.                         |\n| sale.full_name                      | string  | The full name of the purchaser.                                  |\n| sale.street_address                 | string  | The street address of the purchaser.                             |\n| sale.city                           | string  | The city of the purchaser.                                       |\n| sale.state                          | string  | The state of the purchaser.                                      |\n| sale.zip_code                       | string  | The zip code of the purchaser.                                   |\n| sale.country                        | string  | The country of the purchaser.                                    |\n| sale.paid                           | boolean | Indicates if the sale has been paid.                             |\n| sale.has_variants                   | boolean | Indicates if the product has variants.                           |\n| sale.variants                       | object  | Details about the product variants.                              |\n| sale.order_id                       | integer | The order ID associated with the sale.                           |\n| sale.is_product_physical            | boolean | Indicates if the product is physical.                            |\n| sale.purchaser_id                   | string  | The unique identifier of the purchaser.                          |\n| sale.is_recurring_billing           | boolean | Indicates if the billing is recurring.                           |\n| sale.can_contact                    | boolean | Indicates if the seller can contact the purchaser.               |\n| sale.referrer                       | string  | The referrer URL for the sale.                                   |\n| sale.card                           | object  | Information about the card used for the purchase.                |\n| sale.shipped                        | boolean | Indicates if the sale has been marked as shipped.                |\n| sale.tracking_url                   | string  | The URL for tracking the shipment.                               |\n| sale.license_key                    | string  | The license key associated with the sale.                        |\n| sale.affiliate                      | object  | Information about the affiliate involved in the sale.            |\n| sale.quantity                       | integer | The quantity of the product sold.                                |\n"
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"sale\": {\n        \"id\": \"A-m3CDDC5dlrSdKZp0RFhA==\",\n        \"email\": \"calvin@gumroad.com\",\n        \"seller_id\": \"RkCCaDkPPciPd9155vcaJg==\",\n        \"timestamp\": \"about 1 month ago\",\n        \"daystamp\": \"23 Jan 2021 12:23 PM\",\n        \"created_at\": \"2021-01-23T20:23:21Z\",\n        \"product_name\": \"classic physical product\",\n        \"product_has_variants\": true,\n        \"price\": 2200,\n        \"gumroad_fee\": 217,\n        \"formatted_display_price\": \"$22\",\n        \"formatted_total_price\": \"$22\",\n        \"currency_symbol\": \"$\",\n        \"amount_refundable_in_currency\": \"22\",\n        \"product_id\": \"CCQadnagaqfmKxdHaG5AKQ==\",\n        \"product_permalink\": \"KHc\",\n        \"refunded\": false,\n        \"partially_refunded\": false,\n        \"chargedback\": false,\n        \"purchase_email\": \"calvin@gumroad.com\",\n        \"full_name\": \"Sample Name\",\n        \"street_address\": \"Sample street\",\n        \"city\": \"New York\",\n        \"state\": \"NY\",\n        \"zip_code\": \"10001\",\n        \"country\": \"United States\",\n        \"country_iso2\": \"US\",\n        \"paid\": true,\n        \"has_variants\": true,\n        \"variants\": {\n            \"Format\": \"Premium\"\n        },\n        \"variants_and_quantity\": \"(Premium)\",\n        \"has_custom_fields\": false,\n        \"custom_fields\": {},\n        \"order_id\": 292372715,\n        \"is_product_physical\": true,\n        \"purchaser_id\": \"6225273416381\",\n        \"is_recurring_billing\": false,\n        \"can_contact\": true,\n        \"is_following\": false,\n        \"disputed\": false,\n        \"dispute_won\": false,\n        \"is_additional_contribution\": false,\n        \"discover_fee_charged\": false,\n        \"is_gift_sender_purchase\": false,\n        \"is_gift_receiver_purchase\": false,\n        \"referrer\": \"direct\",\n        \"card\": {\n            \"visual\": \"**** **** **** 4242\",\n            \"type\": \"visa\"\n        },\n        \"product_rating\": null,\n        \"reviews_count\": 0,\n        \"average_rating\": 0,\n        \"shipped\": true,\n        \"tracking_url\": \"https://www.shippingcompany.com/track/t123\",\n        \"license_key\": \"740A36FE-80134D88-9998290C-1B30910C\",\n        \"license_id\": \"mN7CdHiwHaR9FlxKvF-n-g==\",\n        \"license_disabled\": false,\n        \"sku_id\": \"6Oo2MGSSagZU5naeWaDaNQ==\",\n        \"sku_external_id\": \"6Oo2MGSS1gaU5a5eWaDaNQ==\",\n        \"affiliate\": {\n            \"email\": \"affiliate@example.com\",\n            \"amount\": \"$2.50\"\n        },\n        \"quantity\": 1\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Subscribers",
+			"item": [
+				{
+					"name": "Get Subscriber Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "Indicates the media type of the resource."
+							}
+						],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/subscribers/:subscriber_id",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"subscribers",
+								":subscriber_id"
+							],
+							"variable": [
+								{
+									"key": "subscriber_id",
+									"value": "{{subscriber_id}}",
+									"description": "The unique identifier of the subscriber."
+								}
+							]
+						},
+						"description": "The `GET /subscribers/{subscriber_id}` operation retrieves the details of a subscriber to a user's product. This operation is part of the Gumroad API, also referred to as the Gumroad Oauth API. It allows you to access detailed information about a specific subscriber by providing the subscriber's unique identifier.\n\n## Response Body\n\n| Name | Type | Description |\n|-------------------------------------|---------|-----------------------------------------------------------------------------|\n| success | boolean | Indicates if the request was successful. |\n| subscribers.id | string | The unique identifier of the subscriber. |\n| subscribers.product_id | string | The unique identifier of the product the subscriber is associated with. |\n| subscribers.product_name | string | The name of the product the subscriber is associated with. |\n| subscribers.user_id | string | The unique identifier of the user (subscriber). |\n| subscribers.user_email | string | The email address of the subscriber. |\n| subscribers.purchase_ids | array | An array of purchase identifiers associated with the subscriber. |\n| subscribers.created_at | string | The timestamp when the subscription was created. |\n| subscribers.user_requested_cancellation_at | string | The timestamp when the user requested cancellation, if applicable. |\n| subscribers.charge_occurrence_count | integer | The number of times the charge has occurred, if applicable. |\n| subscribers.recurrence | string | The recurrence pattern of the subscription (e.g., monthly). |\n| subscribers.cancelled_at | string | The timestamp when the subscription was cancelled, if applicable. |\n| subscribers.ended_at | string | The timestamp when the subscription ended, if applicable. |\n| subscribers.failed_at | string | The timestamp when the subscription failed, if applicable. |\n| subscribers.free_trial_ends_at | string | The timestamp when the free trial ends, if applicable. |\n| subscribers.license_key | string | The license key associated with the subscription. |\n| subscribers.status | string | The current status of the subscription (e.g., alive, pending_cancellation). |"
+					},
+					"response": [
+						{
+							"name": "Retrieve Subscriber Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/subscribers/:subscriber_id",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"subscribers",
+										":subscriber_id"
+									],
+									"variable": [
+										{
+											"key": "subscriber_id",
+											"value": "{{subscriber_id}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"subscribers\": {\n        \"id\": \"P5ppE6H8XIjy2JSCgUhbAw==\",\n        \"product_id\": \"0ssD7adjRklGBjS5cwlWPq==\",\n        \"product_name\": \"Pencil Icon PSD\",\n        \"user_id\": \"3523953790232\",\n        \"user_email\": \"calvin@gumroad.com\",\n        \"purchase_ids\": [\"O4pjE6H8XNjy2JSCgKhbAw==\"],\n        \"created_at\": \"2015-06-30T17:38:04Z\",\n        \"user_requested_cancellation_at\": null,\n        \"charge_occurrence_count\": null,\n        \"recurrence\": \"monthly\",\n        \"cancelled_at\": null,\n        \"ended_at\": null,\n        \"failed_at\": null,\n        \"free_trial_ends_at\": null,\n        \"license_key\": \"85DB562A-C11D4B06-A2335A6B-8C079166\",\n        \"status\": \"alive\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Active Subscribers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.gumroad.com/v2/products/:product_id/subscribers?email=:email&paginated=:paginated&page_key=:page_key",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"products",
+								":product_id",
+								"subscribers"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": ":email",
+									"description": "Filter subscribers by this email."
+								},
+								{
+									"key": "paginated",
+									"value": ":paginated",
+									"description": "Set to \"true\" to limit the number of subscribers returned to 100."
+								},
+								{
+									"key": "page_key",
+									"value": ":page_key",
+									"description": "A key representing a page of results, provided in the paginated response of the previous page as `next_page_key`."
+								}
+							],
+							"variable": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}"
+								},
+								{
+									"key": "email",
+									"value": "{{email}}"
+								},
+								{
+									"key": "paginated",
+									"value": "{{paginated}}"
+								},
+								{
+									"key": "page_key",
+									"value": "{{page_key}}"
+								}
+							]
+						},
+						"description": "The `GET /products/{product_id}/subscribers` operation retrieves all active subscribers for a specific product of the authenticated user. This operation allows you to filter subscribers by email and paginate results if needed. A subscription is considered terminated if any of the `failed_at`, `ended_at`, or `cancelled_at` timestamps are populated and are in the past. The status of a subscription can be one of several states, including `alive`, `pending_cancellation`, `pending_failure`, `failed_payment`, `fixed_subscription_period_ended`, or `cancelled`.\n\n## Response Body\n\n| Name | Type | Description |\n|-------------------------------------|--------|-----------------------------------------------------------------------------|\n| success | boolean| Indicates whether the request was successful. |\n| next_page_url | string | URL for the next page of results, if pagination is enabled. |\n| next_page_key | string | Key for the next page of results, used for pagination. |\n| subscribers | array | List of subscriber objects. |\n| subscribers.id | string | Unique identifier for the subscriber. |\n| subscribers.product_id | string | Identifier of the product the subscriber is associated with. |\n| subscribers.product_name | string | Name of the product the subscriber is associated with. |\n| subscribers.user_id | string | Unique identifier for the user (subscriber). |\n| subscribers.user_email | string | Email address of the subscriber. |\n| subscribers.purchase_ids | array | List of purchase identifiers associated with the subscriber. |\n| subscribers.created_at | string | Timestamp when the subscription was created. |\n| subscribers.user_requested_cancellation_at | string | Timestamp when the user requested cancellation, if applicable. |\n| subscribers.charge_occurrence_count | integer| Number of times the charge has occurred. |\n| subscribers.recurrence | string | Recurrence pattern of the subscription (e.g., monthly). |\n| subscribers.cancelled_at | string | Timestamp when the subscription was cancelled, if applicable. |\n| subscribers.ended_at | string | Timestamp when the subscription ended, if applicable. |\n| subscribers.failed_at | string | Timestamp when the subscription failed, if applicable. |\n| subscribers.free_trial_ends_at | string | Timestamp when the free trial ends, if applicable. |\n| subscribers.license_key | string | License key associated with the subscription. |\n| subscribers.status | string | Current status of the subscription (e.g., alive, pending_cancellation). |"
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.gumroad.com/v2/products/:product_id/subscribers?email=:email&paginated=:paginated&page_key=:page_key",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"products",
+										":product_id",
+										"subscribers"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": ":email",
+											"description": "Filter subscribers by this email."
+										},
+										{
+											"key": "paginated",
+											"value": ":paginated",
+											"description": "Set to \"true\" to limit the number of subscribers returned to 100."
+										},
+										{
+											"key": "page_key",
+											"value": ":page_key",
+											"description": "A key representing a page of results, provided in the paginated response of the previous page as `next_page_key`."
+										}
+									],
+									"variable": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "email",
+											"value": "{{email}}"
+										},
+										{
+											"key": "paginated",
+											"value": "{{paginated}}"
+										},
+										{
+											"key": "page_key",
+											"value": "{{page_key}}"
+										}
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n\"success\": true,\n\"next_page_url\": \"/v2/products/0ssD7adjRklGBjS5cwlWPq==/subscribers?page_key=20241004235318372406-857093235&email=calvin%40gumroad.com\",\n\"next_page_key\": \"20241004235318372406-857093235\",\n\"subscribers\": [{\n\"id\": \"P5ppE6H8XIjy2JSCgUhbAw==\",\n\"product_id\": \"0ssD7adjRklGBjS5cwlWPq==\",\n\"product_name\":\"Pencil Icon PSD\",\n\"user_id\": \"3523953790232\",\n\"user_email\":\"calvin@gumroad.com\",\n\"purchase_ids\": [\"O4pjE6H8XNjy2JSCgKhbAw==\"],\n\"created_at\": \"2015-06-30T17:38:04Z\",\n\"user_requested_cancellation_at\": null,\n\"charge_occurrence_count\": null,\n\"recurrence\": \"monthly\",\n\"cancelled_at\": null,\n\"ended_at\": null,\n\"failed_at\": null,\n\"free_trial_ends_at\": null,\n\"license_key\": \"85DB562A-C11D4B06-A2335A6B-8C079166\",\n\"status\": \"alive\"\n}]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Licenses",
+			"item": [
+				{
+					"name": "Decrement License Uses Count",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique ID of the product, available on the product's edit page."
+								},
+								{
+									"key": "license_key",
+									"value": "{{license_key}}",
+									"description": "The key of the license whose usage count is to be decremented."
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/licenses/decrement_uses_count",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"licenses",
+								"decrement_uses_count"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Decrement License Usage Count",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "product_id",
+											"value": "{{product_id}}"
+										},
+										{
+											"key": "license_key",
+											"value": "{{license_key}}"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/licenses/decrement_uses_count",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"licenses",
+										"decrement_uses_count"
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"uses\": 3,\n    \"purchase\": {\n        \"seller_id\": \"kL0psVL2admJSYRNs-OCMg==\",\n        \"product_id\": \"32-nPAicqbLj8B_WswVlMw==\",\n        \"product_name\": \"licenses demo product\",\n        \"permalink\": \"QMGY\",\n        \"product_permalink\": \"https://sahil.gumroad.com/l/pencil\",\n        \"email\": \"customer@example.com\",\n        \"price\": 0,\n        \"gumroad_fee\": 0,\n        \"currency\": \"usd\",\n        \"quantity\": 1,\n        \"discover_fee_charged\": false,\n        \"can_contact\": true,\n        \"referrer\": \"direct\",\n        \"card\": {\n            \"visual\": null,\n            \"type\": null\n        },\n        \"order_number\": 524459935,\n        \"sale_id\": \"FO8TXN-dbxYaBdahG97Y-Q==\",\n        \"sale_timestamp\": \"2021-01-05T19:38:56Z\",\n        \"purchaser_id\": \"5550321502811\",\n        \"subscription_id\": \"GDzW4_aBdQc-o7Gbjng7lw==\",\n        \"variants\": \"\",\n        \"license_key\": \"85DB562A-C11D4B06-A2335A6B-8C079166\",\n        \"is_multiseat_license\": false,\n        \"ip_country\": \"United States\",\n        \"recurrence\": \"monthly\",\n        \"is_gift_receiver_purchase\": false,\n        \"refunded\": false,\n        \"disputed\": false,\n        \"dispute_won\": false,\n        \"id\": \"FO8TXN-dvaYbBbahG97a-Q==\",\n        \"created_at\": \"2021-01-05T19:38:56Z\",\n        \"custom_fields\": [],\n        \"chargebacked\": false,\n        \"subscription_ended_at\": null,\n        \"subscription_cancelled_at\": null,\n        \"subscription_failed_at\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Disable License",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "license_id",
+									"value": "{{license_id}}",
+									"description": "The unique identifier of the license to be disabled."
+								},
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique ID of the product, available on the product's edit page."
+								},
+								{
+									"key": "license_key",
+									"value": "{{license_key}}",
+									"description": "The license key provided by your customer."
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/licenses/disable",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"licenses",
+								"disable"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Disabling a License",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "license_id",
+											"value": "{{license_id}}"
+										},
+										{
+											"key": "product_id",
+											"value": "32-nPAicqbLj8B_WswVlMw=="
+										},
+										{
+											"key": "license_key",
+											"value": "YOUR_CUSTOMERS_LICENSE_KEY"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/licenses/disable",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"licenses",
+										"disable"
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"uses\": 3,\n    \"purchase\": {\n        \"seller_id\": \"kL0psVL2admJSYRNs-OCMg==\",\n        \"product_id\": \"32-nPAicqbLj8B_WswVlMw==\",\n        \"product_name\": \"licenses demo product\",\n        \"permalink\": \"QMGY\",\n        \"product_permalink\": \"https://sahil.gumroad.com/l/pencil\",\n        \"email\": \"customer@example.com\",\n        \"price\": 0,\n        \"gumroad_fee\": 0,\n        \"currency\": \"usd\",\n        \"quantity\": 1,\n        \"discover_fee_charged\": false,\n        \"can_contact\": true,\n        \"referrer\": \"direct\",\n        \"card\": {\n            \"visual\": null,\n            \"type\": null\n        },\n        \"order_number\": 524459935,\n        \"sale_id\": \"FO8TXN-dbxYaBdahG97Y-Q==\",\n        \"sale_timestamp\": \"2021-01-05T19:38:56Z\",\n        \"purchaser_id\": \"5550321502811\",\n        \"subscription_id\": \"GDzW4_aBdQc-o7Gbjng7lw==\",\n        \"variants\": \"\",\n        \"license_key\": \"85DB562A-C11D4B06-A2335A6B-8C079166\",\n        \"is_multiseat_license\": false,\n        \"ip_country\": \"United States\",\n        \"recurrence\": \"monthly\",\n        \"is_gift_receiver_purchase\": false,\n        \"refunded\": false,\n        \"disputed\": false,\n        \"dispute_won\": false,\n        \"id\": \"FO8TXN-dvaYbBbahG97a-Q==\",\n        \"created_at\": \"2021-01-05T19:38:56Z\",\n        \"custom_fields\": [],\n        \"chargebacked\": false,\n        \"subscription_ended_at\": null,\n        \"subscription_cancelled_at\": null,\n        \"subscription_failed_at\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Verify a license",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique ID of the product, available on the product's edit page."
+								},
+								{
+									"key": "license_key",
+									"value": "{{license_key}}",
+									"description": "The license key provided by your customer."
+								},
+								{
+									"key": "increment_uses_count",
+									"value": "true",
+									"description": "Optional parameter to indicate whether to increment the usage count. Defaults to 'true'."
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/licenses/verify",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"licenses",
+								"verify"
+							]
+						},
+						"description": "The `POST /licenses/verify` operation in the Gumroad API is used to verify a license key for a specific product. This operation checks the validity of a customer's license key and returns information about the purchase associated with that license.\n\n## Request Body\n\n| Name                  | Type   | Required | Description                                                        |\n|-----------------------|--------|----------|--------------------------------------------------------------------|\n| product_id            | String | Yes      | The unique ID of the product, available on the product's edit page.|\n| license_key           | String | Yes      | The license key provided by your customer.                         |\n| increment_uses_count  | String | No       | Optional parameter to indicate whether to increment the usage count. Defaults to \"true\". |\n\n## Response Body\n\n| Name                           | Type    | Description                                                      |\n|--------------------------------|---------|------------------------------------------------------------------|\n| success                        | Boolean | Indicates if the license verification was successful.            |\n| uses                           | Integer | The number of times the license has been used.                   |\n| purchase                       | Object  | Contains detailed information about the purchase associated with the license. |\n| purchase.seller_id             | String  | The ID of the seller.                                            |\n| purchase.product_id            | String  | The ID of the product.                                           |\n| purchase.product_name          | String  | The name of the product.                                         |\n| purchase.permalink             | String  | The permalink of the product.                                    |\n| purchase.product_permalink     | String  | The full URL to the product page.                                |\n| purchase.email                 | String  | The email of the purchaser.                                      |\n| purchase.price                 | Integer | The price of the product.                                        |\n| purchase.gumroad_fee           | Integer | The fee charged by Gumroad.                                      |\n| purchase.currency              | String  | The currency of the transaction.                                 |\n| purchase.quantity              | Integer | The quantity purchased.                                          |\n| purchase.discover_fee_charged  | Boolean | Indicates if a discover fee was charged.                         |\n| purchase.can_contact           | Boolean | Indicates if the seller can contact the purchaser.               |\n| purchase.referrer              | String  | The referrer of the purchase.                                    |\n| purchase.card                  | Object  | Information about the card used for the purchase.                |\n| purchase.order_number          | Integer | The order number of the purchase.                                |\n| purchase.sale_id               | String  | The sale ID of the purchase.                                     |\n| purchase.sale_timestamp        | String  | The timestamp of the sale.                                       |\n| purchase.purchaser_id          | String  | The ID of the purchaser.                                         |\n| purchase.subscription_id       | String  | The subscription ID if applicable.                               |\n| purchase.variants              | String  | Any variants of the product purchased.                           |\n| purchase.license_key           | String  | The license key associated with the purchase.                    |\n| purchase.is_multiseat_license  | Boolean | Indicates if the license is a multiseat license.                 |\n| purchase.ip_country            | String  | The country of the IP address used for the purchase.             |\n| purchase.recurrence            | String  | The recurrence of the purchase (e.g., monthly).                  |\n| purchase.is_gift_receiver_purchase | Boolean | Indicates if the purchase was a gift.                            |\n| purchase.refunded              | Boolean | Indicates if the purchase was refunded.                          |\n| purchase.disputed              | Boolean | Indicates if the purchase was disputed.                          |\n| purchase.dispute_won           | Boolean | Indicates if the dispute was won.                                |\n| purchase.id                    | String  | The ID of the purchase.                                          |\n| purchase.created_at            | String  | The creation date of the purchase.                               |\n| purchase.custom_fields         | Array   | Custom fields associated with the purchase.                      |\n| purchase.chargebacked          | Boolean | Indicates if the purchase was chargebacked.                      |\n| purchase.subscription_ended_at | String  | The end date of the subscription if applicable.                  |\n| purchase.subscription_cancelled_at | String | The cancellation date of the subscription if applicable.         |\n| purchase.subscription_failed_at | String | The failure date of the subscription if applicable.              |\n"
+					},
+					"response": [
+						{
+							"name": "License Verification",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "product_id",
+											"value": "32-nPAicqbLj8B_WswVlMw==",
+											"description": "The unique ID of the product, available on the product's edit page."
+										},
+										{
+											"key": "license_key",
+											"value": "YOUR_CUSTOMERS_LICENSE_KEY",
+											"description": "The license key provided by your customer."
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/licenses/verify",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"licenses",
+										"verify"
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"success\": true,\n  \"uses\": 3,\n  \"purchase\": {\n    \"seller_id\": \"kL0psVL2admJSYRNs-OCMg==\",\n    \"product_id\": \"32-nPAicqbLj8B_WswVlMw==\",\n    \"product_name\": \"licenses demo product\",\n    \"permalink\": \"QMGY\",\n    \"product_permalink\": \"https://sahil.gumroad.com/l/pencil\",\n    \"email\": \"customer@example.com\",\n    \"price\": 0,\n    \"gumroad_fee\": 0,\n    \"currency\": \"usd\",\n    \"quantity\": 1,\n    \"discover_fee_charged\": false,\n    \"can_contact\": true,\n    \"referrer\": \"direct\",\n    \"card\": {\n      \"visual\": null,\n      \"type\": null\n    },\n    \"order_number\": 524459935,\n    \"sale_id\": \"FO8TXN-dbxYaBdahG97Y-Q==\",\n    \"sale_timestamp\": \"2021-01-05T19:38:56Z\",\n    \"purchaser_id\": \"5550321502811\",\n    \"subscription_id\": \"GDzW4_aBdQc-o7Gbjng7lw==\",\n    \"variants\": \"\",\n    \"license_key\": \"85DB562A-C11D4B06-A2335A6B-8C079166\",\n    \"is_multiseat_license\": false,\n    \"ip_country\": \"United States\",\n    \"recurrence\": \"monthly\",\n    \"is_gift_receiver_purchase\": false,\n    \"refunded\": false,\n    \"disputed\": false,\n    \"dispute_won\": false,\n    \"id\": \"FO8TXN-dvaYbBbahG97a-Q==\",\n    \"created_at\": \"2021-01-05T19:38:56Z\",\n    \"custom_fields\": [],\n    \"chargebacked\": false,\n    \"subscription_ended_at\": null,\n    \"subscription_cancelled_at\": null,\n    \"subscription_failed_at\": null\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Enable a license",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "access_token",
+									"value": "{{access_token}}",
+									"description": "The access token for authenticating the API request."
+								},
+								{
+									"key": "product_id",
+									"value": "{{product_id}}",
+									"description": "The unique ID of the product associated with the license."
+								},
+								{
+									"key": "license_key",
+									"value": "{{license_key}}",
+									"description": "The license key provided by the customer."
+								}
+							]
+						},
+						"url": {
+							"raw": "https://api.gumroad.com/v2/licenses/enable",
+							"protocol": "https",
+							"host": [
+								"api",
+								"gumroad",
+								"com"
+							],
+							"path": [
+								"v2",
+								"licenses",
+								"enable"
+							]
+						},
+						"description": "The \"Enable a license\" operation in the Gumroad API is used to activate a previously disabled license key for a specific product. This operation allows you to re-enable access to digital products for customers who have valid licenses but were previously unable to use them due to the license being disabled.\n\n## Request Body\n\n| Name          | Type   | Required | Description                                      |\n|---------------|--------|----------|--------------------------------------------------|\n| access_token  | String | Yes      | The access token for authenticating the API request. |\n| product_id    | String | Yes      | The unique ID of the product associated with the license. |\n| license_key   | String | Yes      | The license key provided by the customer.        |\n\n## Response Body\n\n| Name                          | Type    | Description                                                  |\n|-------------------------------|---------|--------------------------------------------------------------|\n| success                       | Boolean | Indicates whether the operation was successful.              |\n| uses                          | Integer | The number of times the license has been used.               |\n| purchase                      | Object  | Details about the purchase associated with the license.      |\n| purchase.seller_id            | String  | The ID of the seller.                                        |\n| purchase.product_id           | String  | The ID of the product.                                       |\n| purchase.product_name         | String  | The name of the product.                                     |\n| purchase.permalink            | String  | The permalink of the product.                                |\n| purchase.product_permalink    | String  | The full URL of the product's page.                          |\n| purchase.email                | String  | The email of the customer.                                   |\n| purchase.price                | Integer | The price of the product.                                    |\n| purchase.gumroad_fee          | Integer | The fee charged by Gumroad.                                  |\n| purchase.currency             | String  | The currency of the transaction.                             |\n| purchase.quantity             | Integer | The quantity purchased.                                      |\n| purchase.discover_fee_charged | Boolean | Indicates if a discover fee was charged.                     |\n| purchase.can_contact          | Boolean | Indicates if the seller can contact the customer.            |\n| purchase.referrer             | String  | The referrer of the purchase.                                |\n| purchase.card                 | Object  | Information about the card used for the purchase.            |\n| purchase.order_number         | Integer | The order number of the purchase.                            |\n| purchase.sale_id              | String  | The sale ID of the purchase.                                 |\n| purchase.sale_timestamp       | String  | The timestamp of the sale.                                   |\n| purchase.purchaser_id         | String  | The ID of the purchaser.                                     |\n| purchase.subscription_id      | String  | The subscription ID if applicable.                           |\n| purchase.variants             | String  | Any variants associated with the purchase.                   |\n| purchase.license_key          | String  | The license key associated with the purchase.                |\n| purchase.is_multiseat_license | Boolean | Indicates if the license is a multiseat license.             |\n| purchase.ip_country           | String  | The country of the IP address used for the purchase.         |\n| purchase.recurrence           | String  | The recurrence type of the purchase (e.g., monthly).         |\n| purchase.is_gift_receiver_purchase | Boolean | Indicates if the purchase was a gift receiver purchase. |\n| purchase.refunded             | Boolean | Indicates if the purchase was refunded.                      |\n| purchase.disputed             | Boolean | Indicates if the purchase was disputed.                      |\n| purchase.dispute_won          | Boolean | Indicates if the dispute was won.                            |\n| purchase.id                   | String  | The ID of the purchase.                                      |\n| purchase.created_at           | String  | The creation timestamp of the purchase.                      |\n| purchase.custom_fields        | Array   | Any custom fields associated with the purchase.              |\n| purchase.chargebacked         | Boolean | Indicates if the purchase was chargebacked.                  |\n| purchase.subscription_ended_at | String  | The end date of the subscription if applicable.              |\n| purchase.subscription_cancelled_at | String  | The cancellation date of the subscription if applicable. |\n| purchase.subscription_failed_at | String  | The failure date of the subscription if applicable.         |\n"
+					},
+					"response": [
+						{
+							"name": "Enabling a License",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "access_token",
+											"value": "ACCESS_TOKEN"
+										},
+										{
+											"key": "product_id",
+											"value": "32-nPAicqbLj8B_WswVlMw=="
+										},
+										{
+											"key": "license_key",
+											"value": "YOUR_CUSTOMERS_LICENSE_KEY"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://api.gumroad.com/v2/licenses/enable",
+									"protocol": "https",
+									"host": [
+										"api",
+										"gumroad",
+										"com"
+									],
+									"path": [
+										"v2",
+										"licenses",
+										"enable"
+									]
+								}
+							},
+							"status": "200 OK",
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n\"success\": true,\n\"uses\": 3,\n\"purchase\": {\n\"seller_id\": \"kL0psVL2admJSYRNs-OCMg==\",\n\"product_id\": \"32-nPAicqbLj8B_WswVlMw==\",\n\"product_name\": \"licenses demo product\",\n\"permalink\": \"QMGY\",\n\"product_permalink\": \"https://sahil.gumroad.com/l/pencil\",\n\"email\": \"customer@example.com\",\n\"price\": 0,\n\"gumroad_fee\": 0,\n\"currency\": \"usd\",\n\"quantity\": 1,\n\"discover_fee_charged\": false,\n\"can_contact\": true,\n\"referrer\": \"direct\",\n\"card\": {\n\"visual\": null,\n\"type\": null\n},\n\"order_number\": 524459935,\n\"sale_id\": \"FO8TXN-dbxYaBdahG97Y-Q==\",\n\"sale_timestamp\": \"2021-01-05T19:38:56Z\",\n\"purchaser_id\": \"5550321502811\",\n\"subscription_id\": \"GDzW4_aBdQc-o7Gbjng7lw==\",\n\"variants\": \"\",\n\"license_key\": \"85DB562A-C11D4B06-A2335A6B-8C079166\",\n\"is_multiseat_license\": false,\n\"ip_country\": \"United States\",\n\"recurrence\": \"monthly\",\n\"is_gift_receiver_purchase\": false,\n\"refunded\": false,\n\"disputed\": false,\n\"dispute_won\": false,\n\"id\": \"FO8TXN-dvaYbBbahG97a-Q==\",\n\"created_at\": \"2021-01-05T19:38:56Z\",\n\"custom_fields\": [],\n\"chargebacked\": false,\n\"subscription_ended_at\": null,\n\"subscription_cancelled_at\": null,\n\"subscription_failed_at\": null\n}\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "accessToken",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	}
+}
