@@ -12,7 +12,6 @@ use Gumroad\QueryBuilders\SalesQueryBuilder;
 use Gumroad\QueryBuilders\SubscribersQueryBuilder;
 use Gumroad\Exceptions\GumroadException;
 use Illuminate\Routing\Controller;
-use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class GumroadController extends Controller
 {
@@ -26,7 +25,7 @@ class GumroadController extends Controller
         try {
             $products = $this->gumroad->getAllProducts();
             return response()->json($products);
-        } catch (GumroadException|UnknownProperties $e) {
+        } catch (GumroadException $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -39,7 +38,7 @@ class GumroadController extends Controller
         try {
             $product = $this->gumroad->getProduct($productId);
             return response()->json($product);
-        } catch (GumroadException|UnknownProperties $e) {
+        } catch (GumroadException $e) {
             return response()->json(['error' => $e->getMessage()], 404);
         }
     }
@@ -62,7 +61,7 @@ class GumroadController extends Controller
             $offerCode = $this->gumroad->createOfferCode($productId, $offerCodeData);
             
             return response()->json($offerCode, 201);
-        } catch (GumroadException|UnknownProperties $e) {
+        } catch (GumroadException $e) {
             return response()->json(['error' => $e->getMessage()], 422);
         }
     }
@@ -94,7 +93,7 @@ class GumroadController extends Controller
             $sales = $this->gumroad->getSales($queryBuilder->build());
             
             return response()->json($sales);
-        } catch (GumroadException|UnknownProperties $e) {
+        } catch (GumroadException $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -113,7 +112,7 @@ class GumroadController extends Controller
             $result = $this->gumroad->markSaleAsShipped($saleId, $shippingData);
             
             return response()->json($result);
-        } catch (GumroadException|UnknownProperties $e) {
+        } catch (GumroadException $e) {
             return response()->json(['error' => $e->getMessage()], 422);
         }
     }
@@ -134,7 +133,7 @@ class GumroadController extends Controller
             $verification = $this->gumroad->verifyLicense($licenseData);
             
             return response()->json($verification);
-        } catch (GumroadException|UnknownProperties $e) {
+        } catch (GumroadException $e) {
             return response()->json(['error' => $e->getMessage()], 422);
         }
     }
@@ -162,7 +161,7 @@ class GumroadController extends Controller
             $subscribers = $this->gumroad->getActiveSubscribers($productId, $queryBuilder->build());
             
             return response()->json($subscribers);
-        } catch (GumroadException|UnknownProperties $e) {
+        } catch (GumroadException $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -184,7 +183,7 @@ class GumroadController extends Controller
             }
             
             return response()->json($result);
-        } catch (GumroadException|UnknownProperties $e) {
+        } catch (GumroadException $e) {
             return response()->json(['error' => $e->getMessage()], 422);
         }
     }
@@ -197,7 +196,7 @@ class GumroadController extends Controller
         try {
             $user = $this->gumroad->getUser();
             return response()->json($user);
-        } catch (GumroadException|UnknownProperties $e) {
+        } catch (GumroadException $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }

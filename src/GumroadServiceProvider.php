@@ -13,7 +13,7 @@ class GumroadServiceProvider extends ServiceProvider
         
         $this->app->singleton('gumroad', function ($app) {
             $config = $app['config']['gumroad'];
-            return new GumroadClient($config['access_token']);
+            return new GumroadClient($config);
         });
         
         $this->app->alias('gumroad', GumroadClient::class);
