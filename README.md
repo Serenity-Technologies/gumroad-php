@@ -1,16 +1,20 @@
 # Gumroad PHP SDK for Laravel
 
-A comprehensive Laravel package for interacting with the Gumroad API. This package provides full support for all Gumroad API endpoints with proper DTOs, QueryBuilders, and Laravel integration.
+A comprehensive Laravel package for interacting with the Gumroad API. This package provides full support for all Gumroad API endpoints with **constructor-based Laravel Data DTOs**, QueryBuilders, and Laravel integration.
+
+Built with [Spatie Laravel Data](https://github.com/spatie/laravel-data) featuring constructor-based instantiation for improved type safety and immutability.
 
 ## Features
 
 - ✅ Full API coverage for all Gumroad endpoints
-- ✅ Type-safe DTOs for requests and responses
+- ✅ **Constructor-based Laravel Data DTOs** with type safety and immutability
 - ✅ Fluent QueryBuilder classes for complex queries
 - ✅ Laravel Service Provider and Facade integration
 - ✅ Proper exception handling
 - ✅ PSR-4 autoloading
 - ✅ Comprehensive documentation
+- ✅ Automatic array-to-DTO conversion utilities
+- ✅ Backward compatibility with factory methods
 
 ## Installation
 
@@ -45,12 +49,15 @@ $products = Gumroad::getAllProducts();
 // Get a specific product
 $product = Gumroad::getProduct('product-id-here');
 
-// Create a new offer code
-$offerCodeData = new CreateOfferCodeDTO([
-    'name' => 'SPRING20',
-    'percent_off' => 20,
-    'offer_type' => 'percent'
-]);
+// Create a new offer code using constructor
+$offerCodeData = new CreateOfferCodeDTO(
+    name: 'SPRING20',
+    amount_off: null,
+    percent_off: 20,
+    offer_type: 'percent',
+    max_purchase_count: null,
+    universal: null
+);
 
 $offerCode = Gumroad::createOfferCode('product-id', $offerCodeData);
 ```
@@ -157,52 +164,56 @@ $query = (new SubscribersQueryBuilder())
 $subscribers = Gumroad::getActiveSubscribers('product-id', $query);
 ```
 
-## DTO Examples
+## DTO Usage
 
-### Creating a Product Variant
+### Constructor-Based Approach (Recommended)
 
 ```php
-use Gumroad\DTOs\VariantDTO;
+use Gumroad\DTOs\CreateOfferCodeDTO;
+use Gumroad\DTOs\VerifyLicenseDTO;
 
-$variantData = [
-    'name' => 'Large',
-    'price_difference_cents' => 500,
-    'purchasing_power_parity_prices' => [
-        'US' => 500,
-        'IN' => 250,
-        'EC' => 125
-    ],
-    'is_pay_what_you_want' => false
-];
+// Create offer code with named parameters
+$offerCode = new CreateOfferCodeDTO(
+    name: 'WELCOME10',
+    amount_off: null,
+    percent_off: 10,
+    offer_type: 'percent',
+    max_purchase_count: 100,
+    universal: null
+);
 
-$variant = new VariantDTO($variantData);
+// Verify license
+$license = new VerifyLicenseDTO(
+    product_id: 'product-123',
+    license_key: 'ABC123-DEF456',
+    increment_uses_count: true
+);
 ```
 
-### Creating an Offer Code
+### Factory Method Approach (Backward Compatible)
 
 ```php
 use Gumroad\DTOs\CreateOfferCodeDTO;
 
-$offerCodeData = new CreateOfferCodeDTO([
-    'name' => 'WELCOME10',
-    'percent_off' => 10,
+// Create from array data
+$offerCode = CreateOfferCodeDTO::fromArray([
+    'name' => 'BACKWARD20',
+    'amount_off' => null,
+    'percent_off' => 20,
     'offer_type' => 'percent',
-    'max_purchase_count' => 100
+    'max_purchase_count' => 50,
+    'universal' => null
 ]);
 ```
 
-### Verifying a License
+### DTO to Array Conversion
 
 ```php
-use Gumroad\DTOs\VerifyLicenseDTO;
+use Gumroad\DTOs\ProductDTO;
 
-$licenseData = new VerifyLicenseDTO([
-    'product_id' => 'product-id',
-    'license_key' => 'ABC123-DEF456-GHI789-JKL012',
-    'increment_uses_count' => true
-]);
-
-$verification = Gumroad::verifyLicense($licenseData);
+// Convert DTO to array
+$productDto = new ProductDTO(/* ... */);
+$arrayData = $productDto->toArray();
 ```
 
 ## Error Handling
@@ -225,12 +236,29 @@ try {
 composer test
 ```
 
+## DTO Conversion Tools
+
+This package includes automated tools for converting DTOs to constructor-based definitions:
+
+```bash
+# Batch convert all DTOs
+php batch_convert_dtos.php
+
+# Full-featured converter with logging
+php convert_dtos_to_constructors.php
+
+# Convert single DTO file
+php simple_dto_converter.php ProductDTO.php
+```
+
+See `DTO_CONVERSION_SCRIPTS.md` for detailed documentation.
+
 ## Requirements
 
 - PHP ^8.1
 - Laravel ^9.0|^10.0|^11.0
 - GuzzleHttp ^7.0
-- Spatie Data Transfer Object ^3.0
+- Spatie Laravel Data ^4.19
 
 ## License
 
