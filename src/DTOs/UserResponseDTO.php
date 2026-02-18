@@ -4,6 +4,8 @@ namespace Gumroad\DTOs;
 
 class UserResponseDTO extends BaseDTO
 {
-    public bool $success;
-    public UserDTO $user;
+    public function __construct(
+        public bool $success,
+        public UserDTO $user,
+    ) {}
 }
