@@ -1,0 +1,30 @@
+<?php
+
+namespace Gumroad;
+
+use Illuminate\Support\ServiceProvider;
+use Gumroad\Clients\GumroadClient;
+
+class GumroadServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../config/gumroad.php', 'gumroad');
+        
+        $this->app->singleton('gumroad', function ($app) {
+            $config = $app['config']['gumroad'];
+            return new GumroadClient($config['access_token']);
+        });
+        
+        $this->app->alias('gumroad', GumroadClient::class);
+    }
+    
+    public function boot(): void
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/gumroad.php' => config_path('gumroad.php'),
+            ], 'config');
+        }
+    }
+}
