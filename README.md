@@ -19,7 +19,7 @@ Built with [Spatie Laravel Data](https://github.com/spatie/laravel-data) featuri
 ## Installation
 
 ```bash
-composer require gumroad/gumroad-php
+composer require serenity_technologies/gumroad
 ```
 
 ## Configuration
