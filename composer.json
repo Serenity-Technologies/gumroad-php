@@ -1,5 +1,5 @@
 {
-    "name": "gumroad/gumroad-php",
+    "name": "serenity-technologies-library/gumroad",
     "description": "Laravel package for Gumroad API integration with DTOs and QueryBuilders",
     "type": "library",
     "license": "MIT",
