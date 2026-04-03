@@ -22,6 +22,13 @@ use Gumroad\DTOs\VerifyLicenseDTO;
 use Gumroad\DTOs\EnableLicenseDTO;
 use Gumroad\DTOs\DisableLicenseDTO;
 use Gumroad\DTOs\DecrementUsesDTO;
+use Gumroad\DTOs\PayoutDTO;
+use Gumroad\DTOs\PayoutListDTO;
+use Gumroad\DTOs\PayoutResponseDTO;
+use Gumroad\DTOs\UpcomingPayoutsDTO;
+use Gumroad\DTOs\ResourceSubscriptionDTO;
+use Gumroad\DTOs\ResourceSubscriptionListDTO;
+use Gumroad\DTOs\ResourceSubscriptionResponseDTO;
 use Gumroad\Exceptions\GumroadException;
 
 class GumroadClient extends BaseClient
@@ -255,6 +262,14 @@ class GumroadClient extends BaseClient
         $response = $this->put("/sales/{$saleId}/refund");
         return RefundSaleDTO::from($response);
     }
+
+    /**
+     * @throws GumroadException
+     */
+    public function resendReceipt(string $saleId): array
+    {
+        return $this->post("/sales/{$saleId}/resend_receipt");
+    }
     
     // Licenses API
 
@@ -292,6 +307,44 @@ class GumroadClient extends BaseClient
     {
         $response = $this->put('/licenses/decrement_uses_count', $licenseData->toArray());
         return LicenseResponseDTO::from($response);
+    }
+
+    /**
+     * @throws GumroadException
+     */
+    public function rotateLicense(DecrementUsesDTO $licenseData): LicenseResponseDTO
+    {
+        $response = $this->put('/licenses/rotate', $licenseData->toArray());
+        return LicenseResponseDTO::from($response);
+    }
+
+    // Payouts API
+
+    /**
+     * @throws GumroadException
+     */
+    public function getAllPayouts(array $queryParams = []): PayoutListDTO
+    {
+        $response = $this->get('/payouts', $queryParams);
+        return PayoutListDTO::from($response);
+    }
+
+    /**
+     * @throws GumroadException
+     */
+    public function getPayout(string $payoutId, array $queryParams = []): PayoutResponseDTO
+    {
+        $response = $this->get("/payouts/{$payoutId}", $queryParams);
+        return PayoutResponseDTO::from($response);
+    }
+
+    /**
+     * @throws GumroadException
+     */
+    public function getUpcomingPayouts(array $queryParams = []): UpcomingPayoutsDTO
+    {
+        $response = $this->get('/payouts/upcoming', $queryParams);
+        return UpcomingPayoutsDTO::from($response);
     }
     
     // Custom Fields API
@@ -333,17 +386,19 @@ class GumroadClient extends BaseClient
     /**
      * @throws GumroadException
      */
-    public function getResourceSubscription(string $subscriptionId): array
+    public function createResourceSubscription(CreateResourceSubscriptionDTO $data): ResourceSubscriptionResponseDTO
     {
-        return $this->get("/resource_subscriptions/{$subscriptionId}");
+        $response = $this->put('/resource_subscriptions', $data->toArray());
+        return ResourceSubscriptionResponseDTO::from($response);
     }
 
     /**
      * @throws GumroadException
      */
-    public function updateResourceSubscription(array $data): array
+    public function getResourceSubscriptions(string $resourceName): ResourceSubscriptionListDTO
     {
-        return $this->put('/resource_subscriptions', $data);
+        $response = $this->get('/resource_subscriptions', ['resource_name' => $resourceName]);
+        return ResourceSubscriptionListDTO::from($response);
     }
 
     /**

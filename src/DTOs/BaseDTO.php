@@ -10,9 +10,10 @@ abstract class BaseDTO extends Data
 {
     /**
      * Create DTO from array data
-     * 
+     *
      * @param array $data
      * @return static
+     * @throws \ReflectionException
      */
     public static function fromArray(array $data): static
     {
