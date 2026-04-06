@@ -2,6 +2,12 @@
 <?php
 
 /**
+ * @author Kwadwo Kyeremeh <kyerematics@gmail.com>
+ * @link https://github.com/serenity-technologies
+ * @license MIT
+ */
+
+/**
  * Batch DTO Constructor Converter
  * 
  * Converts all DTO files in the src/DTOs directory to use constructors.

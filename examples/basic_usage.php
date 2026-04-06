@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * @author Kwadwo Kyeremeh <kyerematics@gmail.com>
+ * @link https://github.com/serenity-technologies
+ * @license MIT
+ */
+
+/**
  * Gumroad PHP SDK Usage Examples
  * 
  * This file demonstrates various ways to use the Gumroad PHP SDK

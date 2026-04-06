@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Kwadwo Kyeremeh <kyerematics@gmail.com>
+ * @link https://github.com/serenity-technologies
+ * @license MIT
+ */
+
 namespace Gumroad\Clients;
 
 use Gumroad\Exceptions\GumroadException;
