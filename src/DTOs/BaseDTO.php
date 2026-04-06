@@ -33,11 +33,11 @@ abstract class BaseDTO extends Data
             $value = $data[$name] ?? ($param->isDefaultValueAvailable() ? $param->getDefaultValue() : null);
             
             // Check if the corresponding property has DataCollectionOf attribute
-            if (is_array($value) && $reflection->hasProperty($name)) {
+            if ($reflection->hasProperty($name)) {
                 $property = $reflection->getProperty($name);
                 $attributes = $property->getAttributes(DataCollectionOf::class);
                 
-                if (!empty($attributes)) {
+                if (!empty($attributes) && is_array($value)) {
                     $dtoClass = $attributes[0]->newInstance()->class;
                     // Transform array of arrays into array of DTOs
                     $value = array_map(function($item) use ($dtoClass) {
@@ -46,6 +46,17 @@ abstract class BaseDTO extends Data
                         }
                         return $item;
                     }, $value);
+                }
+            }
+            
+            // Handle single nested DTO (check parameter type)
+            if (is_array($value)) {
+                $paramType = $param->getType();
+                if ($paramType instanceof \ReflectionNamedType) {
+                    $typeName = $paramType->getName();
+                    if (class_exists($typeName) && is_subclass_of($typeName, BaseDTO::class)) {
+                        $value = $typeName::fromArray($value);
+                    }
                 }
             }
             
