@@ -11,13 +11,13 @@ namespace Gumroad\DTOs;
 class OfferCodeDTO extends BaseDTO
 {
     public function __construct(
-        public string $id,
-        public string $name,
+        public ?string $id,
+        public ?string $name,
         public ?int $amount_cents,
         public ?int $percent_off,
         public ?int $max_purchase_count,
-        public bool $universal,
-        public int $times_used,
+        public ?bool $universal,
+        public ?int $times_used,
     ) {}
 }
 
