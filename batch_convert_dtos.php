@@ -3,7 +3,7 @@
 
 /**
  * @author Kwadwo Kyeremeh <kyerematics@gmail.com>
- * @link https://github.com/serenity-technologies
+ * @link https://github.com/serenity-technologies/gumroad-php
  * @license MIT
  */
 

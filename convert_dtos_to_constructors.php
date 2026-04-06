@@ -2,6 +2,12 @@
 <?php
 
 /**
+ * @author Kwadwo Kyeremeh <kyerematics@gmail.com>
+ * @link https://github.com/serenity-technologies/gumroad-php
+ * @license MIT
+ */
+
+/**
  * DTO Constructor Conversion Script
  * 
  * This script automatically converts all DTO classes in the src/DTOs folder

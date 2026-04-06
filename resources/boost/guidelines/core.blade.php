@@ -1,3 +1,12 @@
+<?php
+
+/**
+ * @author Kwadwo Kyeremeh <kyerematics@gmail.com>
+ * @link https://github.com/serenity-technologies/gumroad-php
+ * @license MIT
+ */
+
+?>
 ## Gumroad PHP
 
 This package provides a comprehensive Laravel integration for the Gumroad API, covering all 43 API endpoints with type-safe DTOs, query builders, and exception handling.
