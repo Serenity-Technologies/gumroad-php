@@ -2,6 +2,12 @@
 <?php
 
 /**
+ * @author Kwadwo Kyeremeh <kyerematics@gmail.com>
+ * @link https://github.com/serenity-technologies/gumroad-php
+ * @license MIT
+ */
+
+/**
  * Simple DTO Constructor Converter Example
  * 
  * This demonstrates how to convert a single DTO file to use constructors.
