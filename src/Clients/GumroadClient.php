@@ -8,6 +8,7 @@
 
 namespace Gumroad\Clients;
 
+use Gumroad\DTOs\CreateResourceSubscriptionDTO;
 use Gumroad\DTOs\ProductDTO;
 use Gumroad\DTOs\ProductListDTO;
 use Gumroad\DTOs\VariantCategoryDTO;
@@ -43,20 +44,22 @@ class GumroadClient extends BaseClient
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getAllProducts(): ProductListDTO
     {
         $response = $this->get('/products');
-        return ProductListDTO::from($response);
+        return ProductListDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getProduct(string $productId): ProductDTO
     {
         $response = $this->get("/products/{$productId}");
-        return ProductDTO::from($response['product']);
+        return ProductDTO::fromArray($response['product']);
     }
 
     /**
@@ -95,29 +98,32 @@ class GumroadClient extends BaseClient
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getVariantCategory(string $productId, string $categoryId): VariantCategoryDTO
     {
         $response = $this->get("/products/{$productId}/variant_categories/{$categoryId}");
-        return VariantCategoryDTO::from($response['variant_category']);
+        return VariantCategoryDTO::fromArray($response['variant_category']);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function createVariantCategory(string $productId, array $data): VariantCategoryDTO
     {
         $response = $this->post("/products/{$productId}/variant_categories", $data);
-        return VariantCategoryDTO::from($response['variant_category']);
+        return VariantCategoryDTO::fromArray($response['variant_category']);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function updateVariantCategory(string $productId, string $categoryId, array $data): VariantCategoryDTO
     {
         $response = $this->put("/products/{$productId}/variant_categories/{$categoryId}", $data);
-        return VariantCategoryDTO::from($response['variant_category']);
+        return VariantCategoryDTO::fromArray($response['variant_category']);
     }
 
     /**
@@ -140,29 +146,32 @@ class GumroadClient extends BaseClient
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getVariant(string $productId, string $categoryId, string $variantId): VariantDTO
     {
         $response = $this->get("/products/{$productId}/variant_categories/{$categoryId}/variants/{$variantId}");
-        return VariantDTO::from($response['variant']);
+        return VariantDTO::fromArray($response['variant']);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function createVariant(string $productId, string $categoryId, array $data): VariantDTO
     {
         $response = $this->post("/products/{$productId}/variant_categories/{$categoryId}/variants", $data);
-        return VariantDTO::from($response['variant']);
+        return VariantDTO::fromArray($response['variant']);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function updateVariant(string $productId, string $categoryId, string $variantId, array $data): VariantDTO
     {
         $response = $this->put("/products/{$productId}/variant_categories/{$categoryId}/variants/{$variantId}", $data);
-        return VariantDTO::from($response['variant']);
+        return VariantDTO::fromArray($response['variant']);
     }
 
     /**
@@ -177,38 +186,42 @@ class GumroadClient extends BaseClient
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getOfferCodes(string $productId): OfferCodeListDTO
     {
         $response = $this->get("/products/{$productId}/offer_codes");
-        return OfferCodeListDTO::from($response);
+        return OfferCodeListDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getOfferCode(string $productId, string $offerCodeId): OfferCodeDTO
     {
         $response = $this->get("/products/{$productId}/offer_codes/{$offerCodeId}");
-        return OfferCodeDTO::from($response['offer_code']);
+        return OfferCodeDTO::fromArray($response['offer_code']);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function createOfferCode(string $productId, CreateOfferCodeDTO $offerCodeData): OfferCodeDTO
     {
         $response = $this->post("/products/{$productId}/offer_codes", $offerCodeData->toArray());
-        return OfferCodeDTO::from($response['offer_code']);
+        return OfferCodeDTO::fromArray($response['offer_code']);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function updateOfferCode(string $productId, string $offerCodeId, UpdateOfferCodeDTO $offerCodeData): OfferCodeDTO
     {
         $response = $this->put("/products/{$productId}/offer_codes/{$offerCodeId}", $offerCodeData->toArray());
-        return OfferCodeDTO::from($response['offer_code']);
+        return OfferCodeDTO::fromArray($response['offer_code']);
     }
 
     /**
@@ -223,50 +236,55 @@ class GumroadClient extends BaseClient
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getUser(): UserResponseDTO
     {
         $response = $this->get('/user');
-        return UserResponseDTO::from($response);
+        return UserResponseDTO::fromArray($response);
     }
-    
+
     // Sales API
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getSales(array $queryParams = []): SaleListDTO
     {
         $response = $this->get('/sales', $queryParams);
-        return SaleListDTO::from($response);
+        return SaleListDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getSale(string $saleId): SaleResponseDTO
     {
         $response = $this->get("/sales/{$saleId}");
-        return SaleResponseDTO::from($response);
+        return SaleResponseDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function markSaleAsShipped(string $saleId, ?MarkShippedDTO $data = null): SaleResponseDTO
     {
         $requestData = $data ? $data->toArray() : [];
         $response = $this->put("/sales/{$saleId}/mark_as_shipped", $requestData);
-        return SaleResponseDTO::from($response);
+        return SaleResponseDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function refundSale(string $saleId): RefundSaleDTO
     {
         $response = $this->put("/sales/{$saleId}/refund");
-        return RefundSaleDTO::from($response);
+        return RefundSaleDTO::fromArray($response);
     }
 
     /**
@@ -281,76 +299,84 @@ class GumroadClient extends BaseClient
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function verifyLicense(VerifyLicenseDTO $licenseData): LicenseVerificationDTO
     {
         $response = $this->post('/licenses/verify', $licenseData->toArray());
-        return LicenseVerificationDTO::from($response);
+        return LicenseVerificationDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function enableLicense(EnableLicenseDTO $licenseData): LicenseResponseDTO
     {
         $response = $this->put('/licenses/enable', $licenseData->toArray());
-        return LicenseResponseDTO::from($response);
+        return LicenseResponseDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function disableLicense(DisableLicenseDTO $licenseData): LicenseResponseDTO
     {
         $response = $this->put('/licenses/disable', $licenseData->toArray());
-        return LicenseResponseDTO::from($response);
+        return LicenseResponseDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function decrementLicenseUses(DecrementUsesDTO $licenseData): LicenseResponseDTO
     {
         $response = $this->put('/licenses/decrement_uses_count', $licenseData->toArray());
-        return LicenseResponseDTO::from($response);
+        return LicenseResponseDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function rotateLicense(DecrementUsesDTO $licenseData): LicenseResponseDTO
     {
         $response = $this->put('/licenses/rotate', $licenseData->toArray());
-        return LicenseResponseDTO::from($response);
+        return LicenseResponseDTO::fromArray($response);
     }
 
     // Payouts API
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getAllPayouts(array $queryParams = []): PayoutListDTO
     {
         $response = $this->get('/payouts', $queryParams);
-        return PayoutListDTO::from($response);
+        return PayoutListDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getPayout(string $payoutId, array $queryParams = []): PayoutResponseDTO
     {
         $response = $this->get("/payouts/{$payoutId}", $queryParams);
-        return PayoutResponseDTO::from($response);
+        return PayoutResponseDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getUpcomingPayouts(array $queryParams = []): UpcomingPayoutsDTO
     {
         $response = $this->get('/payouts/upcoming', $queryParams);
-        return UpcomingPayoutsDTO::from($response);
+        return UpcomingPayoutsDTO::fromArray($response);
     }
     
     // Custom Fields API
@@ -391,20 +417,22 @@ class GumroadClient extends BaseClient
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function createResourceSubscription(CreateResourceSubscriptionDTO $data): ResourceSubscriptionResponseDTO
     {
         $response = $this->put('/resource_subscriptions', $data->toArray());
-        return ResourceSubscriptionResponseDTO::from($response);
+        return ResourceSubscriptionResponseDTO::fromArray($response);
     }
 
     /**
      * @throws GumroadException
+     * @throws \ReflectionException
      */
     public function getResourceSubscriptions(string $resourceName): ResourceSubscriptionListDTO
     {
         $response = $this->get('/resource_subscriptions', ['resource_name' => $resourceName]);
-        return ResourceSubscriptionListDTO::from($response);
+        return ResourceSubscriptionListDTO::fromArray($response);
     }
 
     /**
