@@ -9,8 +9,7 @@
 namespace Gumroad\DTOs;
 
 use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Attributes\Validation\Required;
-use Spatie\LaravelData\Attributes\Validation\Nullable;
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 
 abstract class BaseDTO extends Data
 {
@@ -27,19 +26,38 @@ abstract class BaseDTO extends Data
         $reflection = new \ReflectionClass(static::class);
         $constructor = $reflection->getConstructor();
         $parameters = $constructor->getParameters();
-        
+
         $args = [];
         foreach ($parameters as $param) {
             $name = $param->getName();
-            $args[] = $data[$name] ?? ($param->isDefaultValueAvailable() ? $param->getDefaultValue() : null);
+            $value = $data[$name] ?? ($param->isDefaultValueAvailable() ? $param->getDefaultValue() : null);
+            
+            // Check if the corresponding property has DataCollectionOf attribute
+            if (is_array($value) && $reflection->hasProperty($name)) {
+                $property = $reflection->getProperty($name);
+                $attributes = $property->getAttributes(DataCollectionOf::class);
+                
+                if (!empty($attributes)) {
+                    $dtoClass = $attributes[0]->newInstance()->class;
+                    // Transform array of arrays into array of DTOs
+                    $value = array_map(function($item) use ($dtoClass) {
+                        if (is_array($item)) {
+                            return $dtoClass::fromArray($item);
+                        }
+                        return $item;
+                    }, $value);
+                }
+            }
+            
+            $args[] = $value;
         }
-        
+
         return $reflection->newInstanceArgs($args);
     }
-    
+
     /**
      * Convert DTO to array
-     * 
+     *
      * @return array
      */
     public function toArray(): array

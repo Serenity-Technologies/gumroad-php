@@ -68,6 +68,7 @@ class BaseClient
     {
         try {
             $request = Http::withToken($this->accessToken)
+                ->withUserAgent('SerenityTechnologies\Gumroad')
                 ->acceptJson()
                 ->baseUrl($this->baseUrl)
                 ->timeout($this->timeout);
