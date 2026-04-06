@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^7.0",
         "illuminate/support": "^9.0|^10.0|^11.0|^12.0|^13.0",
         "illuminate/http": "^9.0|^10.0|^11.0|^12.0|^13.0",
-        "spatie/laravel-data": "^4.19"
+        "spatie/laravel-data": "^4.21"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0|^10.0",
