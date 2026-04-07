@@ -8,6 +8,7 @@
 
 namespace Gumroad\Clients;
 
+use Gumroad\DTOs\CreateProductRequestDTO;
 use Gumroad\DTOs\CreateResourceSubscriptionDTO;
 use Gumroad\DTOs\ProductDTO;
 use Gumroad\DTOs\ProductListDTO;
@@ -51,7 +52,16 @@ class GumroadClient extends BaseClient
         $response = $this->get('/products');
         return ProductListDTO::fromArray($response);
     }
-
+    /**
+     * name, price, description, tags
+     * @throws \ReflectionException
+     * @throws GumroadException
+     */
+    public function createProduct(CreateProductRequestDTO $productData): ProductDTO
+    {
+        $response = $this->post("/products", data: $productData->toArray());
+        return ProductDTO::fromArray($response['product']);
+    }
     /**
      * @throws GumroadException
      * @throws \ReflectionException
