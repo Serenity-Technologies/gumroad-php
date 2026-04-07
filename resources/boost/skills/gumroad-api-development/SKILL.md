@@ -29,13 +29,18 @@ src/
 ├── Clients/
 │   ├── BaseClient.php          # HTTP client foundation
 │   └── GumroadClient.php       # All 43 API endpoint methods
-├── DTOs/                        # 31 DTOs for type safety
+├── DTOs/                        # 32 DTOs for type safety
 │   ├── BaseDTO.php             # Base class with from()/toArray()
 │   ├── ProductDTO.php          # Product entity
+│   ├── CreateProductRequestDTO.php  # Create product request
 │   ├── SaleDTO.php             # Sale entity
 │   ├── LicenseDTO.php          # License entity
 │   ├── PayoutDTO.php           # Payout entity
 │   └── ...                     # All other entities
+├── Enums/                       # Type-safe enums
+│   ├── CurrencyCode.php        # Supported currencies (USD, EUR, GBP, etc.)
+│   ├── ProductNativeType.php   # Product types (digital, course, ebook, etc.)
+│   └── RecurrenceId.php        # Subscription recurrence (monthly, yearly, etc.)
 ├── QueryBuilders/
 │   ├── BaseQueryBuilder.php    # Foundation for query builders
 │   ├── SalesQueryBuilder.php   # Fluent sales filtering
@@ -70,16 +75,39 @@ public function index(GumroadClient $gumroad)
 
 ## API Endpoint Categories
 
-### 1. Products (5 endpoints)
+### 1. Products (6 endpoints)
 
 Manage Gumroad products including creation, retrieval, enabling/disabling, and deletion.
 
 ```php
+use Gumroad\DTOs\CreateProductRequestDTO;
+use Gumroad\Enums\CurrencyCode;
+use Gumroad\Enums\ProductNativeType;
+use Gumroad\Enums\RecurrenceId;
+
 // Get all products
 $products = Gumroad::getAllProducts();
 
 // Get single product
 $product = Gumroad::getProduct('product-id');
+
+// Create product
+$productData = new CreateProductRequestDTO(
+    name: 'My Product',
+    price: '1000', // Price in cents
+    price_currency_type: CurrencyCode::USD,
+    native_type: ProductNativeType::DIGITAL,
+    is_physical: false,
+    is_recurring_billing: true,
+    subscription_duration: RecurrenceId::MONTHLY,
+    description: 'Product description',
+    custom_summary: 'Custom summary',
+    ai_prompt: 'AI prompt content',
+    number_of_content_pages: 10,
+    release_at_date: '2024-01-01T00:00:00Z'
+);
+
+$product = Gumroad::createProduct($productData);
 
 // Enable/disable product
 Gumroad::enableProduct('product-id');

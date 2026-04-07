@@ -83,9 +83,36 @@ class ProductService
 ### Products
 - `getAllProducts()` - Get all products
 - `getProduct($productId)` - Get specific product details
+- `createProduct($productData)` - Create a new product
 - `enableProduct($productId)` - Enable a product
 - `disableProduct($productId)` - Disable a product
 - `deleteProduct($productId)` - Delete a product
+
+#### Creating a Product
+
+```php
+use Gumroad\DTOs\CreateProductRequestDTO;
+use Gumroad\Enums\CurrencyCode;
+use Gumroad\Enums\ProductNativeType;
+use Gumroad\Enums\RecurrenceId;
+
+$productData = new CreateProductRequestDTO(
+    name: 'My Product',
+    price: '1000', // Price in cents
+    price_currency_type: CurrencyCode::USD,
+    native_type: ProductNativeType::DIGITAL,
+    is_physical: false,
+    is_recurring_billing: true,
+    subscription_duration: RecurrenceId::MONTHLY,
+    description: 'Product description',
+    custom_summary: 'Custom summary',
+    ai_prompt: 'AI prompt content',
+    number_of_content_pages: 10,
+    release_at_date: '2024-01-01T00:00:00Z'
+);
+
+$product = Gumroad::createProduct($productData);
+```
 
 ### Variant Categories
 - `getVariantCategories($productId)` - Get all variant categories

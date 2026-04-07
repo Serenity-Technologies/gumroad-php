@@ -57,10 +57,11 @@ $products = Gumroad::getAllProducts();
 
 The package implements all 43 Gumroad API endpoints across 11 resource categories:
 
-#### Products (5 endpoints)
+#### Products (6 endpoints)
 
 - `getAllProducts(): ProductListDTO` - Retrieve all products
 - `getProduct(string $productId): ProductDTO` - Get product details
+- `createProduct(array $productData): ProductDTO` - Create a new product
 - `deleteProduct(string $productId): array` - Delete a product
 - `enableProduct(string $productId): array` - Enable a product
 - `disableProduct(string $productId): array` - Disable a product
@@ -68,6 +69,28 @@ The package implements all 43 Gumroad API endpoints across 11 resource categorie
 Example usage:
 
 ```php
+use Gumroad\DTOs\CreateProductRequestDTO;
+use Gumroad\Enums\CurrencyCode;
+use Gumroad\Enums\ProductNativeType;
+use Gumroad\Enums\RecurrenceId;
+
+$productData = new CreateProductRequestDTO(
+    name: 'My Product',
+    price: '1000', // Price in cents
+    price_currency_type: CurrencyCode::USD,
+    native_type: ProductNativeType::DIGITAL,
+    is_physical: false,
+    is_recurring_billing: true,
+    subscription_duration: RecurrenceId::MONTHLY,
+    description: 'Product description',
+    custom_summary: 'Custom summary',
+    ai_prompt: 'AI prompt content',
+    number_of_content_pages: 10,
+    release_at_date: '2024-01-01T00:00:00Z'
+);
+
+$product = Gumroad::createProduct($productData);
+
 $products = Gumroad::getAllProducts();
 $product = Gumroad::getProduct('product-id-here');
 Gumroad::enableProduct('product-id-here');
