@@ -27,6 +27,6 @@ class CreateProductRequestDTO extends BaseDTO
         public ?string $ai_prompt = '',
         public ?int $number_of_content_pages = null,
         public ?string $release_at_date = null,
-        public array $tags = [],
+        public ?array $tags = [],
     ) {}
 }

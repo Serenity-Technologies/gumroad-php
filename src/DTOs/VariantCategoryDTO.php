@@ -16,6 +16,6 @@ class VariantCategoryDTO extends BaseDTO
         public string $id,
         public string $title,
         #[DataCollectionOf(VariantOptionDTO::class)]
-        public array $options,
+        public ?array $options = [],
     ) {}
 }
