@@ -17,15 +17,16 @@ class CreateProductRequestDTO extends BaseDTO
     public function __construct(
         public string $name,
         public string $price,
-        public ?CurrencyCode $price_currency_type,
-        public ?ProductNativeType $native_type,
-        public ?bool $is_physical,
-        public ?bool $is_recurring_billing,
+        public ?CurrencyCode $price_currency_type = CurrencyCode::USD,
+        public ?ProductNativeType $native_type = ProductNativeType::DIGITAL,
+        public ?bool $is_physical = false,
+        public ?bool $is_recurring_billing = false,
         public ?RecurrenceId $subscription_duration = null,
         public ?string $description = null,
         public ?string $custom_summary = null,
         public ?string $ai_prompt = '',
         public ?int $number_of_content_pages = null,
         public ?string $release_at_date = null,
+        public array $tags = [],
     ) {}
 }
