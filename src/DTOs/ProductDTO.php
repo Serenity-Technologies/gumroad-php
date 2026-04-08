@@ -23,7 +23,7 @@ class ProductDTO extends BaseDTO
         public ?array $tags,
         public ?bool $is_tiered_membership,
         public ?array $recurrences,
-        #[DataCollectionOf(VariantDTO::class)]
+        #[DataCollectionOf(VariantCategoryDTO::class)]
         public ?array $variants,
         public ?string $custom_permalink,
         public ?string $custom_receipt,
